@@ -1,0 +1,195 @@
+{"code":"ENOENT","errno":-4058,"level":"error","message":"Initialization error: ENOENT: no such file or directory, open 'E:\\Intop2\\project-root\\whatsapp.json\n'","path":"E:\\Intop2\\project-root\\whatsapp.json\n","stack":"Error: ENOENT: no such file or directory, open 'E:\\Intop2\\project-root\\whatsapp.json\n'\n    at async open (node:internal/fs/promises:638:25)\n    at async Object.writeFile (node:internal/fs/promises:1208:14)\n    at async initializeJsonFile (E:\\Intop2\\project-root\\routes\\whatsappWidget.js:77:5)\n    at async Promise.all (index 1)","syscall":"open","timestamp":"2025-05-13T20:23:37.367Z"}
+{"code":"ENOENT","errno":-4058,"level":"error","message":"Error reading JSON file: ENOENT: no such file or directory, open 'E:\\Intop2\\project-root\\whatsapp.jsonn'","path":"E:\\Intop2\\project-root\\whatsapp.jsonn","stack":"Error: ENOENT: no such file or directory, open 'E:\\Intop2\\project-root\\whatsapp.jsonn'\n    at async open (node:internal/fs/promises:638:25)\n    at async Object.readFile (node:internal/fs/promises:1238:14)\n    at async readWidgets (E:\\Intop2\\project-root\\routes\\whatsappWidget.js:85:18)\n    at async E:\\Intop2\\project-root\\routes\\whatsappWidget.js:258:19","syscall":"open","timestamp":"2025-05-13T20:24:06.015Z"}
+{"code":"ENOENT","errno":-4058,"level":"error","message":"Error reading JSON file: ENOENT: no such file or directory, open 'E:\\Intop2\\project-root\\whatsapp.jsonn'","path":"E:\\Intop2\\project-root\\whatsapp.jsonn","stack":"Error: ENOENT: no such file or directory, open 'E:\\Intop2\\project-root\\whatsapp.jsonn'\n    at async open (node:internal/fs/promises:638:25)\n    at async Object.readFile (node:internal/fs/promises:1238:14)\n    at async readWidgets (E:\\Intop2\\project-root\\routes\\whatsappWidget.js:85:18)\n    at async E:\\Intop2\\project-root\\routes\\whatsappWidget.js:169:21","syscall":"open","timestamp":"2025-05-13T20:26:10.970Z"}
+{"level":"error","message":"Configuration not found for clientId:","timestamp":"2025-05-13T20:38:28.164Z"}
+{"level":"error","message":"Configuration not found for clientId:","timestamp":"2025-05-13T20:38:48.751Z"}
+{"level":"error","message":"Configuration not found for clientId:","timestamp":"2025-05-13T21:19:18.102Z"}
+{"level":"error","message":"Configuration not found for clientId:","timestamp":"2025-05-13T21:23:25.849Z"}
+{"level":"error","message":"Configuration not found for clientId:","timestamp":"2025-05-13T21:23:37.447Z"}
+{"level":"error","message":"Configuration not found for clientId:","timestamp":"2025-05-13T21:38:13.358Z"}
+{"error_message":"The provided API key is invalid.","html_attributions":[],"level":"error","message":"Google API reviews error:","status":"REQUEST_DENIED","timestamp":"2025-05-13T21:43:59.909Z"}
+{"error_message":"The provided API key is invalid.","html_attributions":[],"level":"error","message":"Google API reviews error:","status":"REQUEST_DENIED","timestamp":"2025-05-13T21:44:03.603Z"}
+{"error_message":"The provided API key is invalid.","html_attributions":[],"level":"error","message":"Google API reviews error:","status":"REQUEST_DENIED","timestamp":"2025-05-13T21:44:03.971Z"}
+{"error_message":"The provided API key is invalid.","html_attributions":[],"level":"error","message":"Google API reviews error:","status":"REQUEST_DENIED","timestamp":"2025-05-13T21:44:04.688Z"}
+{"error_message":"The provided API key is invalid.","html_attributions":[],"level":"error","message":"Google API reviews error:","status":"REQUEST_DENIED","timestamp":"2025-05-13T21:44:08.211Z"}
+{"error_message":"The provided API key is invalid.","html_attributions":[],"level":"error","message":"Google API reviews error:","status":"REQUEST_DENIED","timestamp":"2025-05-13T21:44:09.009Z"}
+{"level":"error","message":"Error saving clients:","timestamp":"2025-05-14T14:39:32.554Z"}
+{"level":"error","message":"Configuration not found for clientId:","timestamp":"2025-05-14T14:39:41.560Z"}
+{"level":"error","message":"Configuration not found for clientId:","timestamp":"2025-05-14T14:39:41.815Z"}
+{"level":"error","message":"Configuration not found for clientId:","timestamp":"2025-05-14T14:39:44.762Z"}
+{"level":"error","message":"Configuration not found for clientId:","timestamp":"2025-05-14T14:39:45.223Z"}
+{"level":"error","message":"Configuration not found for clientId:","timestamp":"2025-05-14T14:44:57.531Z"}
+{"level":"error","message":"Configuration not found for clientId:","timestamp":"2025-05-14T14:45:01.128Z"}
+{"level":"error","message":"Configuration not found for clientId:","timestamp":"2025-05-14T14:45:01.538Z"}
+{"level":"error","message":"Configuration not found for clientId:","timestamp":"2025-05-14T14:45:09.490Z"}
+{"level":"error","message":"Configuration not found for clientId:","timestamp":"2025-05-14T14:45:09.688Z"}
+{"level":"error","message":"Configuration not found for clientId:","timestamp":"2025-05-14T14:45:09.903Z"}
+{"level":"error","message":"Configuration not found for clientId:","timestamp":"2025-05-14T14:45:27.546Z"}
+{"level":"error","message":"Configuration not found for clientId:","timestamp":"2025-05-14T14:45:45.964Z"}
+{"level":"error","message":"Configuration not found for clientId:","timestamp":"2025-05-14T14:45:46.681Z"}
+{"level":"error","message":"Configuration not found for clientId:","timestamp":"2025-05-14T14:45:46.903Z"}
+{"level":"error","message":"Configuration not found for clientId:","timestamp":"2025-05-14T14:45:47.094Z"}
+{"level":"error","message":"Error saving clients:","timestamp":"2025-05-14T14:45:53.440Z"}
+{"code":"ENOENT","errno":-4058,"level":"error","message":"Error reading JSON file: ENOENT: no such file or directory, open 'E:\\Intop2\\project-root\\whatsapp.jsonn'","path":"E:\\Intop2\\project-root\\whatsapp.jsonn","stack":"Error: ENOENT: no such file or directory, open 'E:\\Intop2\\project-root\\whatsapp.jsonn'\n    at async open (node:internal/fs/promises:638:25)\n    at async Object.readFile (node:internal/fs/promises:1238:14)\n    at async readWidgets (E:\\Intop2\\project-root\\routes\\whatsappWidget.js:85:18)\n    at async E:\\Intop2\\project-root\\routes\\whatsappWidget.js:258:19","syscall":"open","timestamp":"2025-05-14T14:48:07.952Z"}
+{"code":"ENOENT","errno":-4058,"level":"error","message":"Error reading JSON file: ENOENT: no such file or directory, open 'E:\\Intop2\\project-root\\whatsapp.jsonn'","path":"E:\\Intop2\\project-root\\whatsapp.jsonn","stack":"Error: ENOENT: no such file or directory, open 'E:\\Intop2\\project-root\\whatsapp.jsonn'\n    at async open (node:internal/fs/promises:638:25)\n    at async Object.readFile (node:internal/fs/promises:1238:14)\n    at async readWidgets (E:\\Intop2\\project-root\\routes\\whatsappWidget.js:85:18)\n    at async E:\\Intop2\\project-root\\routes\\whatsappWidget.js:258:19","syscall":"open","timestamp":"2025-05-14T14:48:09.235Z"}
+{"code":"ENOENT","errno":-4058,"level":"error","message":"Error reading JSON file: ENOENT: no such file or directory, open 'E:\\Intop2\\project-root\\whatsapp.jsonn'","path":"E:\\Intop2\\project-root\\whatsapp.jsonn","stack":"Error: ENOENT: no such file or directory, open 'E:\\Intop2\\project-root\\whatsapp.jsonn'\n    at async open (node:internal/fs/promises:638:25)\n    at async Object.readFile (node:internal/fs/promises:1238:14)\n    at async readWidgets (E:\\Intop2\\project-root\\routes\\whatsappWidget.js:85:18)\n    at async E:\\Intop2\\project-root\\routes\\whatsappWidget.js:258:19","syscall":"open","timestamp":"2025-05-14T14:50:07.429Z"}
+{"code":"ENOENT","errno":-4058,"level":"error","message":"Error reading JSON file: ENOENT: no such file or directory, open 'E:\\Intop2\\project-root\\whatsapp.jsonn'","path":"E:\\Intop2\\project-root\\whatsapp.jsonn","stack":"Error: ENOENT: no such file or directory, open 'E:\\Intop2\\project-root\\whatsapp.jsonn'\n    at async open (node:internal/fs/promises:638:25)\n    at async Object.readFile (node:internal/fs/promises:1238:14)\n    at async readWidgets (E:\\Intop2\\project-root\\routes\\whatsappWidget.js:85:18)\n    at async E:\\Intop2\\project-root\\routes\\whatsappWidget.js:258:19","syscall":"open","timestamp":"2025-05-14T14:50:08.225Z"}
+{"code":"ENOENT","errno":-4058,"level":"error","message":"Error reading JSON file: ENOENT: no such file or directory, open 'E:\\Intop2\\project-root\\whatsapp.jsonn'","path":"E:\\Intop2\\project-root\\whatsapp.jsonn","stack":"Error: ENOENT: no such file or directory, open 'E:\\Intop2\\project-root\\whatsapp.jsonn'\n    at async open (node:internal/fs/promises:638:25)\n    at async Object.readFile (node:internal/fs/promises:1238:14)\n    at async readWidgets (E:\\Intop2\\project-root\\routes\\whatsappWidget.js:85:18)\n    at async E:\\Intop2\\project-root\\routes\\whatsappWidget.js:258:19","syscall":"open","timestamp":"2025-05-14T14:50:31.029Z"}
+{"code":"ENOENT","errno":-4058,"level":"error","message":"Error reading JSON file: ENOENT: no such file or directory, open 'E:\\Intop2\\project-root\\whatsapp.jsonn'","path":"E:\\Intop2\\project-root\\whatsapp.jsonn","stack":"Error: ENOENT: no such file or directory, open 'E:\\Intop2\\project-root\\whatsapp.jsonn'\n    at async open (node:internal/fs/promises:638:25)\n    at async Object.readFile (node:internal/fs/promises:1238:14)\n    at async readWidgets (E:\\Intop2\\project-root\\routes\\whatsappWidget.js:85:18)\n    at async E:\\Intop2\\project-root\\routes\\whatsappWidget.js:258:19","syscall":"open","timestamp":"2025-05-14T14:50:31.963Z"}
+{"code":"ENOENT","errno":-4058,"level":"error","message":"Error reading JSON file: ENOENT: no such file or directory, open 'E:\\Intop2\\project-root\\whatsapp.jsonn'","path":"E:\\Intop2\\project-root\\whatsapp.jsonn","stack":"Error: ENOENT: no such file or directory, open 'E:\\Intop2\\project-root\\whatsapp.jsonn'\n    at async open (node:internal/fs/promises:638:25)\n    at async Object.readFile (node:internal/fs/promises:1238:14)\n    at async readWidgets (E:\\Intop2\\project-root\\routes\\whatsappWidget.js:85:18)\n    at async E:\\Intop2\\project-root\\routes\\whatsappWidget.js:258:19","syscall":"open","timestamp":"2025-05-14T14:50:34.130Z"}
+{"level":"error","message":"Configuration not found for clientId:","timestamp":"2025-05-14T14:50:54.135Z"}
+{"level":"error","message":"Configuration not found for clientId:","timestamp":"2025-05-14T14:50:54.174Z"}
+{"level":"error","message":"Configuration not found for clientId:","timestamp":"2025-05-14T14:50:55.360Z"}
+{"level":"error","message":"Configuration not found for clientId:","timestamp":"2025-05-14T14:51:03.657Z"}
+{"level":"error","message":"Configuration not found for clientId:","timestamp":"2025-05-14T14:51:04.677Z"}
+{"level":"error","message":"Configuration not found for clientId:","timestamp":"2025-05-14T14:51:17.403Z"}
+{"level":"error","message":"Configuration not found for clientId:","timestamp":"2025-05-14T14:51:18.357Z"}
+{"level":"error","message":"Configuration not found for clientId:","timestamp":"2025-05-14T14:51:31.146Z"}
+{"level":"error","message":"Configuration not found for clientId:","timestamp":"2025-05-14T14:51:31.729Z"}
+{"level":"error","message":"Configuration not found for clientId:","timestamp":"2025-05-14T14:51:34.518Z"}
+{"level":"error","message":"Configuration not found for clientId:","timestamp":"2025-05-14T14:51:36.224Z"}
+{"level":"error","message":"Configuration not found for clientId:","timestamp":"2025-05-14T14:51:48.078Z"}
+{"level":"error","message":"Configuration not found for clientId:","timestamp":"2025-05-14T14:51:49.740Z"}
+{"level":"error","message":"Configuration not found for clientId:","timestamp":"2025-05-14T14:51:51.129Z"}
+{"level":"error","message":"Configuration not found for clientId:","timestamp":"2025-05-14T14:52:03.396Z"}
+{"level":"error","message":"Configuration not found for clientId:","timestamp":"2025-05-14T14:52:04.039Z"}
+{"level":"error","message":"Configuration not found for clientId:","timestamp":"2025-05-14T14:52:16.781Z"}
+{"level":"error","message":"Configuration not found for clientId:","timestamp":"2025-05-14T14:52:18.525Z"}
+{"level":"error","message":"Configuration not found for clientId:","timestamp":"2025-05-14T14:52:28.564Z"}
+{"level":"error","message":"Configuration not found for clientId:","timestamp":"2025-05-14T14:52:30.117Z"}
+{"level":"error","message":"Configuration not found for clientId:","timestamp":"2025-05-14T14:52:37.432Z"}
+{"level":"error","message":"Configuration not found for clientId:","timestamp":"2025-05-14T14:52:38.394Z"}
+{"level":"error","message":"Configuration not found for clientId:","timestamp":"2025-05-14T14:52:48.796Z"}
+{"level":"error","message":"Configuration not found for clientId:","timestamp":"2025-05-14T14:52:49.817Z"}
+{"level":"error","message":"Configuration not found for clientId:","timestamp":"2025-05-14T14:53:00.310Z"}
+{"level":"error","message":"Configuration not found for clientId:","timestamp":"2025-05-14T14:53:01.603Z"}
+{"level":"error","message":"Configuration not found for clientId:","timestamp":"2025-05-14T14:53:13.079Z"}
+{"level":"error","message":"Configuration not found for clientId:","timestamp":"2025-05-14T14:53:14.163Z"}
+{"level":"error","message":"Configuration not found for clientId:","timestamp":"2025-05-14T14:53:15.135Z"}
+{"level":"error","message":"Configuration not found for clientId:","timestamp":"2025-05-14T14:53:19.336Z"}
+{"level":"error","message":"Configuration not found for clientId:","timestamp":"2025-05-14T14:53:20.280Z"}
+{"level":"error","message":"Configuration not found for clientId:","timestamp":"2025-05-14T14:53:22.201Z"}
+{"level":"error","message":"Configuration not found for clientId:","timestamp":"2025-05-14T14:53:23.071Z"}
+{"level":"error","message":"Configuration not found for clientId:","timestamp":"2025-05-14T14:53:25.254Z"}
+{"level":"error","message":"Configuration not found for clientId:","timestamp":"2025-05-14T14:53:26.274Z"}
+{"level":"error","message":"Configuration not found for clientId:","timestamp":"2025-05-14T14:53:43.093Z"}
+{"level":"error","message":"Configuration not found for clientId:","timestamp":"2025-05-14T14:53:44.211Z"}
+{"level":"error","message":"Configuration not found for clientId:","timestamp":"2025-05-14T14:54:17.804Z"}
+{"level":"error","message":"Configuration not found for clientId:","timestamp":"2025-05-14T14:54:17.951Z"}
+{"level":"error","message":"Configuration not found for clientId:","timestamp":"2025-05-14T14:54:26.810Z"}
+{"level":"error","message":"Configuration not found for clientId:","timestamp":"2025-05-14T14:54:27.112Z"}
+{"level":"error","message":"Configuration not found for clientId:","timestamp":"2025-05-14T14:54:50.571Z"}
+{"level":"error","message":"Configuration not found for clientId:","timestamp":"2025-05-14T14:54:51.407Z"}
+{"level":"error","message":"Configuration not found for clientId:","timestamp":"2025-05-14T14:55:05.077Z"}
+{"level":"error","message":"Configuration not found for clientId:","timestamp":"2025-05-14T14:55:05.898Z"}
+{"level":"error","message":"Configuration not found for clientId:","timestamp":"2025-05-14T14:55:12.829Z"}
+{"level":"error","message":"Configuration not found for clientId:","timestamp":"2025-05-14T14:55:13.589Z"}
+{"level":"error","message":"Configuration not found for clientId:","timestamp":"2025-05-14T14:55:22.099Z"}
+{"level":"error","message":"Configuration not found for clientId:","timestamp":"2025-05-14T14:55:22.841Z"}
+{"level":"error","message":"Configuration not found for clientId:","timestamp":"2025-05-14T14:55:38.612Z"}
+{"level":"error","message":"Configuration not found for clientId:","timestamp":"2025-05-14T14:55:39.557Z"}
+{"level":"error","message":"Configuration not found for clientId:","timestamp":"2025-05-14T14:56:05.925Z"}
+{"level":"error","message":"Configuration not found for clientId:","timestamp":"2025-05-14T14:56:07.107Z"}
+{"level":"error","message":"Configuration not found for clientId:","timestamp":"2025-05-14T14:59:50.824Z"}
+{"level":"error","message":"Configuration not found for clientId:","timestamp":"2025-05-14T15:00:01.591Z"}
+{"level":"error","message":"Configuration not found for clientId:","timestamp":"2025-05-14T15:00:02.359Z"}
+{"level":"error","message":"Configuration not found for clientId:","timestamp":"2025-05-14T15:00:05.164Z"}
+{"level":"error","message":"Configuration not found for clientId:","timestamp":"2025-05-14T15:00:06.023Z"}
+{"level":"error","message":"Configuration not found for clientId:","timestamp":"2025-05-14T15:00:07.780Z"}
+{"level":"error","message":"Configuration not found for clientId:","timestamp":"2025-05-14T15:00:08.541Z"}
+{"level":"error","message":"Configuration not found for clientId:","timestamp":"2025-05-14T15:00:12.346Z"}
+{"level":"error","message":"Configuration not found for clientId:","timestamp":"2025-05-14T15:00:13.137Z"}
+{"level":"error","message":"Configuration not found for clientId:","timestamp":"2025-05-14T15:00:14.058Z"}
+{"level":"error","message":"Configuration not found for clientId:","timestamp":"2025-05-14T15:00:14.822Z"}
+{"level":"error","message":"Configuration not found for clientId:","timestamp":"2025-05-14T15:00:16.847Z"}
+{"level":"error","message":"Configuration not found for clientId:","timestamp":"2025-05-14T15:00:17.689Z"}
+{"level":"error","message":"Configuration not found for clientId:","timestamp":"2025-05-14T15:00:52.228Z"}
+{"level":"error","message":"Configuration not found for clientId:","timestamp":"2025-05-14T15:00:53.292Z"}
+{"level":"error","message":"Configuration not found for clientId:","timestamp":"2025-05-14T15:00:54.124Z"}
+{"level":"error","message":"Configuration not found for clientId:","timestamp":"2025-05-14T15:01:09.392Z"}
+{"level":"error","message":"Configuration not found for clientId:","timestamp":"2025-05-14T15:01:10.194Z"}
+{"level":"error","message":"Configuration not found for clientId:","timestamp":"2025-05-14T15:01:11.639Z"}
+{"level":"error","message":"Configuration not found for clientId:","timestamp":"2025-05-14T15:01:12.441Z"}
+{"level":"error","message":"Configuration not found for clientId:","timestamp":"2025-05-14T15:01:13.879Z"}
+{"level":"error","message":"Configuration not found for clientId:","timestamp":"2025-05-14T15:01:46.319Z"}
+{"level":"error","message":"Configuration not found for clientId:","timestamp":"2025-05-14T15:01:47.121Z"}
+{"level":"error","message":"Configuration not found for clientId:","timestamp":"2025-05-14T15:01:48.618Z"}
+{"level":"error","message":"Configuration not found for clientId:","timestamp":"2025-05-14T15:01:49.401Z"}
+{"level":"error","message":"Configuration not found for clientId:","timestamp":"2025-05-14T15:01:54.288Z"}
+{"level":"error","message":"Configuration not found for clientId:","timestamp":"2025-05-14T15:01:55.060Z"}
+{"level":"error","message":"Configuration not found for clientId:","timestamp":"2025-05-14T15:01:57.911Z"}
+{"level":"error","message":"Configuration not found for clientId:","timestamp":"2025-05-14T15:01:58.673Z"}
+{"level":"error","message":"Configuration not found for clientId:","timestamp":"2025-05-14T15:02:04.856Z"}
+{"level":"error","message":"Configuration not found for clientId:","timestamp":"2025-05-14T15:02:05.666Z"}
+{"level":"error","message":"Configuration not found for clientId:","timestamp":"2025-05-14T15:02:15.794Z"}
+{"level":"error","message":"Configuration not found for clientId:","timestamp":"2025-05-14T15:02:16.592Z"}
+{"level":"error","message":"Configuration not found for clientId:","timestamp":"2025-05-14T15:02:18.586Z"}
+{"level":"error","message":"Configuration not found for clientId:","timestamp":"2025-05-14T15:02:19.393Z"}
+{"level":"error","message":"Configuration not found for clientId:","timestamp":"2025-05-14T15:02:21.836Z"}
+{"level":"error","message":"Configuration not found for clientId:","timestamp":"2025-05-14T15:02:22.612Z"}
+{"level":"error","message":"Configuration not found for clientId:","timestamp":"2025-05-14T15:02:22.823Z"}
+{"level":"error","message":"Configuration not found for clientId:","timestamp":"2025-05-14T15:02:23.588Z"}
+{"level":"error","message":"Configuration not found for clientId:","timestamp":"2025-05-14T15:02:24.941Z"}
+{"level":"error","message":"Configuration not found for clientId:","timestamp":"2025-05-14T15:02:25.705Z"}
+{"level":"error","message":"Configuration not found for clientId:","timestamp":"2025-05-14T15:02:27.317Z"}
+{"level":"error","message":"Configuration not found for clientId:","timestamp":"2025-05-14T15:02:28.113Z"}
+{"level":"error","message":"Configuration not found for clientId:","timestamp":"2025-05-14T15:02:45.385Z"}
+{"level":"error","message":"Configuration not found for clientId:","timestamp":"2025-05-14T15:02:46.723Z"}
+{"level":"error","message":"Configuration not found for clientId:","timestamp":"2025-05-14T15:02:47.489Z"}
+{"level":"error","message":"Configuration not found for clientId:","timestamp":"2025-05-14T15:02:49.850Z"}
+{"level":"error","message":"Configuration not found for clientId:","timestamp":"2025-05-14T15:02:50.684Z"}
+{"level":"error","message":"Configuration not found for clientId:","timestamp":"2025-05-14T15:02:56.822Z"}
+{"level":"error","message":"Configuration not found for clientId:","timestamp":"2025-05-14T15:02:57.601Z"}
+{"level":"error","message":"Configuration not found for clientId:","timestamp":"2025-05-14T15:02:59.549Z"}
+{"level":"error","message":"Configuration not found for clientId:","timestamp":"2025-05-14T15:03:00.357Z"}
+{"level":"error","message":"Configuration not found for clientId:","timestamp":"2025-05-14T15:03:03.987Z"}
+{"level":"error","message":"Configuration not found for clientId:","timestamp":"2025-05-14T15:03:05.932Z"}
+{"level":"error","message":"Configuration not found for clientId:","timestamp":"2025-05-14T15:03:06.441Z"}
+{"level":"error","message":"Configuration not found for clientId:","timestamp":"2025-05-14T15:03:07.416Z"}
+{"level":"error","message":"Configuration not found for clientId:","timestamp":"2025-05-14T15:03:08.221Z"}
+{"level":"error","message":"Configuration not found for clientId:","timestamp":"2025-05-14T15:03:10.890Z"}
+{"level":"error","message":"Configuration not found for clientId:","timestamp":"2025-05-14T15:03:11.674Z"}
+{"level":"error","message":"Configuration not found for clientId:","timestamp":"2025-05-14T15:03:52.526Z"}
+{"code":"ENOENT","errno":-4058,"level":"error","message":"Initialization error: ENOENT: no such file or directory, mkdir 'E:\\Intop2\\project-root\\routes\\whatsappWidget1.js\\config\\project-root\\uploads\\whatsapp.json'","path":"E:\\Intop2\\project-root\\routes\\whatsappWidget1.js\\config\\project-root\\uploads\\whatsapp.json","stack":"Error: ENOENT: no such file or directory, mkdir 'E:\\Intop2\\project-root\\routes\\whatsappWidget1.js\\config\\project-root\\uploads\\whatsapp.json'\n    at async Object.mkdir (node:internal/fs/promises:857:10)\n    at async ensureUploadsDir (E:\\Intop2\\project-root\\routes\\whatsappWidget1.js\\utils\\fileUtils.js:10:5)\n    at async Promise.all (index 0)","syscall":"mkdir","timestamp":"2025-05-14T15:10:04.141Z"}
+{"code":"ENOENT","errno":-4058,"level":"error","message":"Initialization error: ENOENT: no such file or directory, mkdir 'E:\\Intop2\\project-root\\routes\\whatsappWidget1.js\\config\\project-root\\uploads\\whatsapp.json'","path":"E:\\Intop2\\project-root\\routes\\whatsappWidget1.js\\config\\project-root\\uploads\\whatsapp.json","stack":"Error: ENOENT: no such file or directory, mkdir 'E:\\Intop2\\project-root\\routes\\whatsappWidget1.js\\config\\project-root\\uploads\\whatsapp.json'\n    at async Object.mkdir (node:internal/fs/promises:857:10)\n    at async ensureUploadsDir (E:\\Intop2\\project-root\\routes\\whatsappWidget1.js\\utils\\fileUtils.js:10:5)\n    at async Promise.all (index 0)","syscall":"mkdir","timestamp":"2025-05-14T15:10:05.178Z"}
+{"code":"ENOENT","errno":-4058,"level":"error","message":"Initialization error: ENOENT: no such file or directory, mkdir 'E:\\Intop2\\project-root\\routes\\whatsappWidget1.js\\config\\project-root\\uploads\\whatsapp.json'","path":"E:\\Intop2\\project-root\\routes\\whatsappWidget1.js\\config\\project-root\\uploads\\whatsapp.json","stack":"Error: ENOENT: no such file or directory, mkdir 'E:\\Intop2\\project-root\\routes\\whatsappWidget1.js\\config\\project-root\\uploads\\whatsapp.json'\n    at async Object.mkdir (node:internal/fs/promises:857:10)\n    at async ensureUploadsDir (E:\\Intop2\\project-root\\routes\\whatsappWidget1.js\\utils\\fileUtils.js:10:5)\n    at async Promise.all (index 0)","syscall":"mkdir","timestamp":"2025-05-14T15:11:22.108Z"}
+{"code":"ENOENT","errno":-4058,"level":"error","message":"Initialization error: ENOENT: no such file or directory, mkdir 'E:\\Intop2\\project-root\\routes\\whatsappWidget1.js\\config\\project-root\\uploads\\whatsapp.json'","path":"E:\\Intop2\\project-root\\routes\\whatsappWidget1.js\\config\\project-root\\uploads\\whatsapp.json","stack":"Error: ENOENT: no such file or directory, mkdir 'E:\\Intop2\\project-root\\routes\\whatsappWidget1.js\\config\\project-root\\uploads\\whatsapp.json'\n    at async Object.mkdir (node:internal/fs/promises:857:10)\n    at async ensureUploadsDir (E:\\Intop2\\project-root\\routes\\whatsappWidget1.js\\utils\\fileUtils.js:10:5)\n    at async Promise.all (index 0)","syscall":"mkdir","timestamp":"2025-05-14T15:11:24.658Z"}
+{"code":"ENOENT","errno":-4058,"level":"error","message":"Initialization error: ENOENT: no such file or directory, mkdir 'E:\\Intop2\\project-root\\routes\\whatsappWidget1.js\\config\\project-root\\uploads\\whatsapp.json'","path":"E:\\Intop2\\project-root\\routes\\whatsappWidget1.js\\config\\project-root\\uploads\\whatsapp.json","stack":"Error: ENOENT: no such file or directory, mkdir 'E:\\Intop2\\project-root\\routes\\whatsappWidget1.js\\config\\project-root\\uploads\\whatsapp.json'\n    at async Object.mkdir (node:internal/fs/promises:857:10)\n    at async ensureUploadsDir (E:\\Intop2\\project-root\\routes\\whatsappWidget1.js\\utils\\fileUtils.js:10:5)\n    at async Promise.all (index 0)","syscall":"mkdir","timestamp":"2025-05-14T15:11:25.869Z"}
+{"code":"ENOENT","errno":-4058,"level":"error","message":"Initialization error: ENOENT: no such file or directory, mkdir 'E:\\Intop2\\project-root\\routes\\whatsappWidget1.js\\config\\project-root\\uploads'","path":"E:\\Intop2\\project-root\\routes\\whatsappWidget1.js\\config\\project-root\\uploads","stack":"Error: ENOENT: no such file or directory, mkdir 'E:\\Intop2\\project-root\\routes\\whatsappWidget1.js\\config\\project-root\\uploads'\n    at async Object.mkdir (node:internal/fs/promises:857:10)\n    at async ensureUploadsDir (E:\\Intop2\\project-root\\routes\\whatsappWidget1.js\\utils\\fileUtils.js:10:5)\n    at async Promise.all (index 0)","syscall":"mkdir","timestamp":"2025-05-14T15:11:37.923Z"}
+{"level":"error","message":"Configuration not found for clientId:","timestamp":"2025-05-14T15:12:36.006Z"}
+{"level":"error","message":"Configuration not found for clientId:","timestamp":"2025-05-14T15:12:48.032Z"}
+{"level":"error","message":"Configuration not found for clientId:","timestamp":"2025-05-14T15:13:11.219Z"}
+{"level":"error","message":"Configuration not found for clientId:","timestamp":"2025-05-14T15:13:12.377Z"}
+{"level":"error","message":"Configuration not found for clientId:","timestamp":"2025-05-14T15:13:17.413Z"}
+{"level":"error","message":"Configuration not found for clientId:","timestamp":"2025-05-14T15:13:43.463Z"}
+{"level":"error","message":"Configuration not found for clientId:","timestamp":"2025-05-14T15:13:44.189Z"}
+{"level":"error","message":"Configuration not found for clientId:","timestamp":"2025-05-14T15:14:26.415Z"}
+{"level":"error","message":"Configuration not found for clientId:","timestamp":"2025-05-14T15:14:27.515Z"}
+{"level":"error","message":"Configuration not found for clientId:","timestamp":"2025-05-14T15:14:50.963Z"}
+{"level":"error","message":"Configuration not found for clientId:","timestamp":"2025-05-14T15:14:54.646Z"}
+{"level":"error","message":"Configuration not found for clientId:","timestamp":"2025-05-14T15:14:55.714Z"}
+{"level":"error","message":"Configuration not found for clientId:","timestamp":"2025-05-14T15:15:15.164Z"}
+{"level":"error","message":"Configuration not found for clientId:","timestamp":"2025-05-14T15:15:37.483Z"}
+{"level":"error","message":"Configuration not found for clientId:","timestamp":"2025-05-14T15:15:38.629Z"}
+{"level":"error","message":"Configuration not found for clientId:","timestamp":"2025-05-14T15:15:39.805Z"}
+{"level":"error","message":"Configuration not found for clientId:","timestamp":"2025-05-14T15:15:40.866Z"}
+{"level":"error","message":"Configuration not found for clientId:","timestamp":"2025-05-14T15:15:43.561Z"}
+{"level":"error","message":"Configuration not found for clientId:","timestamp":"2025-05-14T15:15:44.277Z"}
+{"level":"error","message":"Configuration not found for clientId:","timestamp":"2025-05-14T15:15:55.648Z"}
+{"code":"ENOENT","errno":-4058,"level":"error","message":"Error reading JSON file: ENOENT: no such file or directory, open 'E:\\Intop2\\project-root\\uploads\\whatsapp.json'","path":"E:\\Intop2\\project-root\\uploads\\whatsapp.json","stack":"Error: ENOENT: no such file or directory, open 'E:\\Intop2\\project-root\\uploads\\whatsapp.json'\n    at async open (node:internal/fs/promises:638:25)\n    at async Object.readFile (node:internal/fs/promises:1238:14)\n    at async readWidgets (E:\\Intop2\\project-root\\routes\\whatsappWidget1.js\\utils\\fileUtils.js:26:18)\n    at async serveWidgetScript (E:\\Intop2\\project-root\\routes\\whatsappWidget1.js\\handlers\\serveWidgetScript.js:12:19)","syscall":"open","timestamp":"2025-05-14T15:15:55.651Z"}
+{"level":"error","message":"Configuration not found for clientId:","timestamp":"2025-05-14T15:15:56.764Z"}
+{"level":"error","message":"Configuration not found for clientId:","timestamp":"2025-05-14T15:15:56.831Z"}
+{"level":"error","message":"Configuration not found for clientId:","timestamp":"2025-05-14T15:15:57.581Z"}
+{"level":"error","message":"Configuration not found for clientId:","timestamp":"2025-05-14T15:16:43.736Z"}
+{"level":"error","message":"Configuration not found for clientId:","timestamp":"2025-05-14T15:16:44.493Z"}
+{"level":"error","message":"Configuration not found for clientId:","timestamp":"2025-05-14T15:16:50.216Z"}
+{"level":"error","message":"Configuration not found for clientId:","timestamp":"2025-05-14T15:16:51.044Z"}
+{"level":"error","message":"Configuration not found for clientId:","timestamp":"2025-05-14T15:16:55.499Z"}
+{"level":"error","message":"Configuration not found for clientId:","timestamp":"2025-05-14T15:16:56.492Z"}
+{"level":"error","message":"Configuration not found for clientId:","timestamp":"2025-05-14T15:17:05.025Z"}
+{"level":"error","message":"Configuration not found for clientId:","timestamp":"2025-05-14T15:17:06.099Z"}
+{"level":"error","message":"Configuration not found for clientId:","timestamp":"2025-05-14T15:17:39.191Z"}
+{"level":"error","message":"Configuration not found for clientId:","timestamp":"2025-05-14T15:17:40.198Z"}
+{"level":"error","message":"Configuration not found for clientId:","timestamp":"2025-05-14T15:17:59.709Z"}
+{"level":"error","message":"Configuration not found for clientId:","timestamp":"2025-05-14T15:18:01.496Z"}
+{"level":"error","message":"Configuration not found for clientId:","timestamp":"2025-05-14T15:18:01.708Z"}
