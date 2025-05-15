@@ -214,5 +214,101 @@
     "greetingMessage": "Greetings,\r\n\r\nIf you would like us to contact you, please provide your name, phone number, and email in a brief message. Thank you.\r\n\r\nRegards,\r\nOur Team",
     "greetingImage": "http://localhost:5000/Uploads/2c729618-8be1-46fb-ac4b-8bff17f87d56.jpg",
     "createdAt": "2025-05-15T15:45:12.188Z"
+  },
+  {
+    "widgetId": "6fce36d8-67fd-4b60-8487-52cd07a85fe1",
+    "phoneNumber": "+918002890713",
+    "welcomeMessage": "Hi! How can we help you?",
+    "buttonColor": "#25D366",
+    "position": "bottom-right",
+    "agentName": "Support Team",
+    "replyTime": "Online",
+    "greetingMessage": "Greetings,\r\n\r\nIf you would like us to contact you, please provide your name, phone number, and email in a brief message. Thank you.\r\n\r\nRegards,\r\nOur Team",
+    "greetingImage": null,
+    "createdAt": "2025-05-15T16:32:31.896Z"
+  },
+  {
+    "widgetId": "7feccb71-cc6f-4760-8d43-30836d99a178",
+    "phoneNumber": "+918002890713",
+    "welcomeMessage": "Hi! How can we help you?",
+    "buttonColor": "#25D366",
+    "position": "bottom-right",
+    "agentName": "Support Team",
+    "replyTime": "Online",
+    "greetingMessage": "Greetings,\r\n\r\nIf you would like us to contact you, please provide your name, phone number, and email in a brief message. Thank you.\r\n\r\nRegards,\r\nOur Team",
+    "greetingImage": "http://www.dash.intopdigital.com/Uploads/cfac4296-e5f5-4382-b3a5-b209b1e7d9aa.jpg",
+    "createdAt": "2025-05-15T16:33:08.157Z"
+  },
+  {
+    "widgetId": "189aff3f-5e79-45c7-81ec-56300da8f421",
+    "phoneNumber": "+918002890713",
+    "welcomeMessage": "Hi! How can we help you?",
+    "buttonColor": "#25D366",
+    "position": "bottom-right",
+    "agentName": "Support Team",
+    "replyTime": "Online",
+    "greetingMessage": "Greetings,\r\n\r\nIf you would like us to contact you, please provide your name, phone number, and email in a brief message. Thank you.\r\n\r\nRegards,\r\nOur Team",
+    "greetingImage": "http://www.dash.intopdigital.com/Uploads/0f852bb9-2370-42f9-8d9a-8e79f05c62a0.jpg",
+    "createdAt": "2025-05-15T16:51:30.001Z"
+  },
+  {
+    "widgetId": "275903fd-ddea-4e9f-9549-6e59e22a6ed2",
+    "phoneNumber": "+918002890713",
+    "welcomeMessage": "Hi! How can we help you?",
+    "buttonColor": "#25D366",
+    "position": "bottom-right",
+    "agentName": "Support Team",
+    "replyTime": "Online",
+    "greetingMessage": "Greetings,\r\n\r\nIf you would like us to contact you, please provide your name, phone number, and email in a brief message. Thank you.\r\n\r\nRegards,\r\nOur Team",
+    "greetingImage": null,
+    "createdAt": "2025-05-15T17:37:51.462Z"
+  },
+  {
+    "widgetId": "aded6589-24bc-40a0-87dc-803c30780e87",
+    "phoneNumber": "+918002890713",
+    "welcomeMessage": "Hi! How can we help you?",
+    "buttonColor": "#25D366",
+    "position": "bottom-right",
+    "agentName": "Support Team",
+    "replyTime": "Online",
+    "greetingMessage": "Greetings,\r\n\r\nIf you would like us to contact you, please provide your name, phone number, and email in a brief message. Thank you.\r\n\r\nRegards,\r\nOur Team",
+    "greetingImage": "http://www.dash.intopdigital.com/Uploads/d4fd493e-47af-4a1c-8acb-f358a8a38d01.jpg",
+    "createdAt": "2025-05-15T17:38:11.351Z"
+  },
+  {
+    "widgetId": "c819ea2a-0ae6-427f-b2a5-ac5306cf2145",
+    "phoneNumber": "+918002890713",
+    "welcomeMessage": "Hi! How can we help you?",
+    "buttonColor": "#25D366",
+    "position": "bottom-right",
+    "agentName": "Support Team",
+    "replyTime": "Online",
+    "greetingMessage": "Greetings,\r\n\r\nIf you would like us to contact you, please provide your name, phone number, and email in a brief message. Thank you.\r\n\r\nRegards,\r\nOur Team",
+    "greetingImage": "http://www.dash.intopdigital.com/Uploads/b70708f3-e5d8-4f7e-9ce0-54e42b7860dc.jpg",
+    "createdAt": "2025-05-15T17:38:53.504Z"
+  },
+  {
+    "widgetId": "2f42f379-7dbb-40f1-ba69-ecaa96ef767b",
+    "phoneNumber": "+918002890713",
+    "welcomeMessage": "Hi! How can we help you?",
+    "buttonColor": "#25D366",
+    "position": "bottom-right",
+    "agentName": "Support Team",
+    "replyTime": "Online",
+    "greetingMessage": "Greetings,\r\n\r\nIf you would like us to contact you, please provide your name, phone number, and email in a brief message. Thank you.\r\n\r\nRegards,\r\nOur Team",
+    "greetingImage": "http://www.dash.intopdigital.com/Uploads/76550cc6-eb40-4171-94f1-d07ec36aff8d.jpg",
+    "createdAt": "2025-05-15T17:39:13.492Z"
+  },
+  {
+    "widgetId": "6b24c8e7-28c7-4c94-9e4a-6ee02e26ca0d",
+    "phoneNumber": "+918002890713",
+    "welcomeMessage": "Hi! How can we help you?",
+    "buttonColor": "#25D366",
+    "position": "bottom-right",
+    "agentName": "Support Team",
+    "replyTime": "Online",
+    "greetingMessage": "Greetings,\r\n\r\nIf you would like us to contact you, please provide your name, phone number, and email in a brief message. Thank you.\r\n\r\nRegards,\r\nOur Team",
+    "greetingImage": "http://www.dash.intopdigital.com/Uploads/6e8421fe-077c-4f2a-8ffc-5060323b26ba.jpg",
+    "createdAt": "2025-05-15T17:39:28.668Z"
   }
 ]
