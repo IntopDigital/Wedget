@@ -30,7 +30,7 @@ const logger = winston.createLogger({
 // Middleware
 const corsOptions = {
   origin: process.env.NODE_ENV === 'production'
-    ? ['http://localhost:5173', 'http://localhost:5174']
+    ? ['http://localhost:5173', 'https://whatsapwidget.netlify.app']
     : '*',
   methods: ['GET', 'POST'],
   credentials: true,
