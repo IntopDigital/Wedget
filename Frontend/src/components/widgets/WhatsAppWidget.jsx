@@ -69,13 +69,13 @@ const WidgetForm = () => {
     }
 
     try {
-      const response = await axios.post('https://dash.intopdigital.com/api/whatsapp/widgets', data, {
+      const response = await axios.post('https://www.dash.intopdigital.com/api/whatsapp/widgets', data, {
         headers: { 'Content-Type': 'multipart/form-data' },
       });
-      console.log('Backend Response:', response.data); // Log response
+      console.log('Backend Response:', response.data);
       setWidgetCode(response.data.embedCode);
       setWidgetId(response.data.widgetId);
-      setGreetingImageUrl(response.data.greetingImageUrl || ''); // Set image URL
+      setGreetingImageUrl(response.data.greetingImageUrl || ''); 
       setError('');
       setIsPreviewVisible(true);
       setActiveTab('code');
@@ -122,7 +122,7 @@ const WidgetForm = () => {
       }
 
       const script = document.createElement('script');
-      script.src = `https://dash.intopdigital.com/api/whatsapp/widget.js?widgetId=${widgetId}`;
+      script.src = `https://www.dash.intopdigital.com/api/whatsapp/widget.js?widgetId=${widgetId}`;
       script.async = true;
       script.setAttribute('data-widget-id', widgetId);
       script.onerror = () => {
