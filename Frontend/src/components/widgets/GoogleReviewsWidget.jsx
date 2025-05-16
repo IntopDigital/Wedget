@@ -470,7 +470,7 @@ WidgetPreview.defaultProps = {
 
 // Main GoogleReviewsWidget Component
 const GoogleReviewsWidget = () => {
-  const BACKEND_URL = 'http://www.dash.intopdigital.com';
+  const BACKEND_URL = 'https://dash.intopdigital.com';
   const [config, setConfig] = useState({
     placeName: '',
     placeId: '',
