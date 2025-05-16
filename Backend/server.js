@@ -30,9 +30,9 @@ const logger = winston.createLogger({
 // Middleware
 const corsOptions = {
   origin: process.env.NODE_ENV === 'production'
-    ? ['http://localhost:5173', 'https://www.apps.intopdigital.com', 'http://www.apps.intopdigital.com']
+    ? ['http://localhost:5173', 'https://www.apps.intopdigital.com',]
     : '*',
-  methods: ['GET', 'POST'],
+   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   credentials: true,
 };
 app.use(cors(corsOptions));
