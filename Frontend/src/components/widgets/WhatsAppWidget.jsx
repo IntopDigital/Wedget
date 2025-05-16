@@ -122,7 +122,7 @@ const WidgetForm = () => {
       }
 
       const script = document.createElement('script');
-      script.src = `http://www.dash.intopdigital.com/api/whatsapp/widget.js?widgetId=${widgetId}`;
+      script.src = `https://www.dash.intopdigital.com/api/whatsapp/widget.js?widgetId=${widgetId}`;
       script.async = true;
       script.setAttribute('data-widget-id', widgetId);
       script.onerror = () => {
