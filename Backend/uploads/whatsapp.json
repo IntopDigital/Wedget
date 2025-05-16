@@ -310,5 +310,17 @@
     "greetingMessage": "Greetings,\r\n\r\nIf you would like us to contact you, please provide your name, phone number, and email in a brief message. Thank you.\r\n\r\nRegards,\r\nOur Team",
     "greetingImage": "http://www.dash.intopdigital.com/Uploads/6e8421fe-077c-4f2a-8ffc-5060323b26ba.jpg",
     "createdAt": "2025-05-15T17:39:28.668Z"
+  },
+  {
+    "widgetId": "ee56e893-ba0f-4d69-aba7-44d66ffc2d58",
+    "phoneNumber": "+918002890713",
+    "welcomeMessage": "Hi! How can we help you?",
+    "buttonColor": "#25D366",
+    "position": "bottom-right",
+    "agentName": "Support Team",
+    "replyTime": "Online",
+    "greetingMessage": "Greetings,\r\n\r\nIf you would like us to contact you, please provide your name, phone number, and email in a brief message. Thank you.\r\n\r\nRegards,\r\nOur Team",
+    "greetingImage": null,
+    "createdAt": "2025-05-16T15:13:40.345Z"
   }
 ]

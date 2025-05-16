@@ -1958,3 +1958,10 @@
 {"level":"info","message":"Created new widget: 6b24c8e7-28c7-4c94-9e4a-6ee02e26ca0d","timestamp":"2025-05-15T17:39:28.668Z"}
 {"greetingImage":"http://www.dash.intopdigital.com/Uploads/6e8421fe-077c-4f2a-8ffc-5060323b26ba.jpg","level":"info","message":"Fetched widget: 6b24c8e7-28c7-4c94-9e4a-6ee02e26ca0d","timestamp":"2025-05-15T17:39:30.695Z"}
 {"level":"warn","message":"Route not found: GET /Uploads/6e8421fe-077c-4f2a-8ffc-5060323b26ba.jpg","timestamp":"2025-05-15T17:39:31.141Z"}
+{"level":"warn","message":"No clients file found, initializing empty CLIENTS:","timestamp":"2025-05-16T15:03:58.107Z"}
+{"level":"warn","message":"No clients file found, initializing empty CLIENTS:","timestamp":"2025-05-16T15:12:09.853Z"}
+{"body":{"agentName":"Support Team","buttonColor":"#25D366","greetingMessage":"Greetings,\r\n\r\nIf you would like us to contact you, please provide your name, phone number, and email in a brief message. Thank you.\r\n\r\nRegards,\r\nOur Team","phoneNumber":"+918002890713","position":"bottom-right","replyTime":"Online","welcomeMessage":"Hi! How can we help you?"},"level":"info","message":"Received /api/whatsapp/widgets request:","timestamp":"2025-05-16T15:13:40.343Z"}
+{"level":"info","message":"Created new widget: ee56e893-ba0f-4d69-aba7-44d66ffc2d58","timestamp":"2025-05-16T15:13:40.345Z"}
+{"greetingImage":null,"level":"info","message":"Fetched widget: ee56e893-ba0f-4d69-aba7-44d66ffc2d58","timestamp":"2025-05-16T15:13:42.242Z"}
+{"level":"warn","message":"No clients file found, initializing empty CLIENTS:","timestamp":"2025-05-16T15:22:45.524Z"}
+{"level":"warn","message":"No clients file found, initializing empty CLIENTS:","timestamp":"2025-05-16T15:41:35.886Z"}
