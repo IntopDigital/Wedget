@@ -322,7 +322,7 @@ ConfigForm.propTypes = {
 
 // WidgetPreview Component
 const WidgetPreview = memo(({ place, reviews, isLoading, themeColor, widgetSize }) => {
-  const BACKEND_URL = 'http://www.dash.intopdigital.com/api/google';
+  const BACKEND_URL = 'http://localhost:5000/api/google';
 
   const sizeStyles = {
     small: 'max-w-sm',
@@ -470,7 +470,7 @@ WidgetPreview.defaultProps = {
 
 // Main GoogleReviewsWidget Component
 const GoogleReviewsWidget = () => {
-  const BACKEND_URL = 'https://dash.intopdigital.com';
+  const BACKEND_URL = 'http://localhost:5000';
   const [config, setConfig] = useState({
     placeName: '',
     placeId: '',
