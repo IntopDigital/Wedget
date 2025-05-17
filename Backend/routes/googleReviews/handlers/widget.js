@@ -11,135 +11,124 @@ function widget(req, res) {
     return res.status(404).send(`console.error("Configuration not found for clientId:", "${clientId}");`);
   }
 
+  // Sanitize config values to prevent injection or syntax errors
+  const safeThemeColor = (config.themeColor || 'blue').replace(/[^a-zA-Z0-9]/g, '');
+  const safeWidgetSize = config.widgetSize || 'medium';
+  const safePlaceId = (config.placeId || '').replace(/'/g, "\\'");
+  const safeClientId = (clientId || '').replace(/'/g, "\\'");
+
   const widgetScript = `
 (function () {
-  const BACKEND_URL = "${process.env.BASE_URL}";
+  const BACKEND_URL = "${process.env.BASE_URL || 'https://default-backend.com'}";
   const WIDGET_SIZE_CLASSES = {
     small: 'max-w-sm',
     medium: 'max-w-md',
-    large: 'max-w-lg'
+    large: 'max-w-lg xl:max-w-2xl'
+  };
+
+  // Improved responsive breakpoints
+  const breakpoints = {
+    sm: 640,
+    md: 768,
+    lg: 1024,
+    xl: 1280
   };
 
   function injectCustomStyles() {
     const style = document.createElement('style');
     style.textContent = \`
       @keyframes fadeInUp {
-        from { opacity: 0; transform: translateY(20px); }
+        from { opacity: 0; transform: translateY(1rem); }
         to { opacity: 1; transform: translateY(0); }
       }
       @keyframes starPulse {
-        0% { transform: scale(1); filter: brightness(1); }
-        50% { transform: scale(1.15); filter: brightness(1.3); }
-        100% { transform: scale(1); filter: brightness(1); }
+        0%, 100% { transform: scale(1); }
+        50% { transform: scale(1.2); }
       }
       @keyframes likeHeart {
-        0% { transform: scale(1); }
-        50% { transform: scale(1.5); }
-        100% { transform: scale(1); }
+        0%, 100% { transform: scale(1); }
+        50% { transform: scale(1.4); }
       }
-      @keyframes fadeIn {
-        from { opacity: 0; }
-        to { opacity: 1; }
+      @keyframes shimmer {
+        0% { background-position: -1000px 0; }
+        100% { background-position: 1000px 0; }
       }
       .review-card {
-        background: white;
-        border: 2px solid transparent;
-        border-image: linear-gradient(45deg, \${['#ff6b6b', '#4ecdc4', '#45b7d1', '#96ceb4'][Math.floor(Math.random() * 4)]}, \${['#ffcc5c', '#d4a5a5', '#9b59b6', '#3498db'][Math.floor(Math.random() * 4)]}) 1;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
         animation: fadeInUp 0.5s ease forwards;
-        animation-delay: calc(var(--index) * 0.2s);
-        opacity: 0;
-        flex: 0 0 90%;
-        max-width: 90%;
-        border-radius: 0.5rem;
-      }
-      @media (min-width: 640px) {
-        .review-card {
-          flex: 0 0 320px;
-          max-width: 320px;
-        }
-      }
-      @media (min-width: 1024px) {
-        .review-card {
-          flex: 0 0 400px;
-          max-width: 400px;
-        }
-      }
-      .review-card:hover {
-        transform: translateY(-4px);
-        box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+        animation-delay: calc(var(--index) * 0.1s);
       }
       .star:hover {
         animation: starPulse 0.5s ease-in-out;
       }
       .like-btn.liked {
-        color: #ff4757;
         animation: likeHeart 0.3s ease;
+        color: #ef4444 !important;
       }
-      .rating-badge {
-        padding: 0.25rem 0.75rem;
-        border-radius: 9999px;
-        font-size: 0.75rem;
-        font-weight: 600;
-      }
-      .reviews-row {
-        display: flex;
-        flex-direction: row;
-        overflow-x: auto;
+      .reviews-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
         gap: 1rem;
-        padding: 0.5rem 0;
-        scrollbar-width: thin;
-        scrollbar-color: ${config.themeColor}-500 #e5e7eb;
       }
-      .reviews-row::-webkit-scrollbar {
-        height: 8px;
-      }
-      .reviews-row::-webkit-scrollbar-track {
-        background: #e5e7eb;
-        border-radius: 4px;
-      }
-      .reviews-row::-webkit-scrollbar-thumb {
-        background: ${config.themeColor}-500;
-        border-radius: 4px;
-      }
-      @media (max-width: 639px) {
-        .reviews-row {
-          flex-direction: column;
-          align-items: center;
-          overflow-x: hidden;
-        }
-        .review-card {
-          width: 100%;
-          max-width: 100%;
+      @media (max-width: \${breakpoints.md}px) {
+        .reviews-container {
+          grid-template-columns: 1fr;
         }
       }
-      .sort-select {
+      .google-reviews-widget {
+        font-size: 14px;
+      }
+      .skeleton {
+        background: linear-gradient(90deg, #f3f3f3 25%, #e0e0e0 50%, #f3f3f3 75%);
+        background-size: 2000px 100%;
+        animation: shimmer 2s infinite linear;
+        border-radius: 0.25rem;
+      }
+      .text-xxs {
+        font-size: 0.7rem;
+        line-height: 0.9rem;
+      }
+      .read-more-btn {
         transition: all 0.2s ease;
       }
-      .sort-select:focus {
-        outline: none;
-        box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
-      }
-      .write-review-btn {
-        transition: all 0.3s ease;
-      }
-      .widget-header {
-        transition: opacity 0.3s ease;
+      .read-more-btn:hover {
+        text-decoration: underline;
       }
       .rating-bar {
-        height: 0.5rem;
-        border-radius: 0.25rem;
-        transition: width 0.5s ease;
+        transition: width 0.8s ease;
       }
-      .fade-transition {
-        transition: opacity 0.3s ease;
+      .widget-header {
+        transition: all 0.3s ease;
+      }
+      .review-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      }
+      .scroll-container {
+        scrollbar-width: thin;
+        scrollbar-color: #${safeThemeColor}400 #f3f4f6;
+      }
+      .scroll-container::-webkit-scrollbar {
+        height: 6px;
+      }
+      .scroll-container::-webkit-scrollbar-track {
+        background: #f3f4f6;
+        border-radius: 10px;
+      }
+      .scroll-container::-webkit-scrollbar-thumb {
+        background-color: #${safeThemeColor}400;
+        border-radius: 10px;
       }
     \`;
     document.head.appendChild(style);
   }
 
   function loadDependencies(callback) {
+    if (document.querySelector('link[href*="tailwindcss"]')) {
+      injectCustomStyles();
+      callback();
+      return;
+    }
+
     const link = document.createElement('link');
     link.rel = 'stylesheet';
     link.href = 'https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css';
@@ -163,8 +152,8 @@ function widget(req, res) {
     let displayedReviews = [];
     let isLoading = false;
     let error = '';
-    let likedReviews = new Set();
-    let sortOption = 'newest';
+    let likedReviews = JSON.parse(localStorage.getItem('likedReviews') || '{}');
+    let sortOption = localStorage.getItem('sortOption') || 'newest';
     const reviewsPerPage = 5;
     let currentPage = 1;
 
@@ -206,158 +195,254 @@ function widget(req, res) {
       displayedReviews = sorted.slice(start, start + reviewsPerPage);
     }
 
+    function formatDate(timestamp) {
+      const date = new Date(timestamp * 1000);
+      return date.toLocaleDateString('en-US', { 
+        year: 'numeric', 
+        month: 'short', 
+        day: 'numeric' 
+      });
+    }
+
+    function renderSkeleton() {
+      container.className = \`google-reviews-widget p-4 bg-white rounded-xl shadow-md \${WIDGET_SIZE_CLASSES['${safeWidgetSize}'] || 'max-w-md'}\`;
+      container.innerHTML = \`
+        <div class="space-y-6">
+          <div class="flex items-center gap-4">
+            <div class="skeleton w-14 h-14 rounded-full"></div>
+            <div class="flex-1 space-y-2">
+              <div class="skeleton h-6 w-3/4 rounded"></div>
+              <div class="skeleton h-4 w-1/2 rounded"></div>
+            </div>
+          </div>
+          <div class="space-y-4">
+            \${[1, 2, 3].map(() => \`
+              <div class="p-4 bg-gray-50 rounded-lg space-y-3">
+                <div class="flex items-center gap-3">
+                  <div class="skeleton w-10 h-10 rounded-full"></div>
+                  <div class="flex-1 space-y-2">
+                    <div class="skeleton h-3 w-1/3 rounded"></div>
+                    <div class="skeleton h-3 w-1/2 rounded"></div>
+                  </div>
+                </div>
+                <div class="space-y-2">
+                  <div class="skeleton h-3 w-full rounded"></div>
+                  <div class="skeleton h-3 w-5/6 rounded"></div>
+                  <div class="skeleton h-3 w-2/3 rounded"></div>
+                </div>
+              </div>
+            \`).join('')}
+          </div>
+        </div>
+      \`;
+    }
+
     function render() {
       updateDisplayedReviews();
       const distribution = getRatingDistribution();
-      container.className = 'google-reviews-widget p-6 bg-gradient-to-br from-${config.themeColor}-50 to-white rounded-2xl shadow-xl transition-all duration-300 ' + WIDGET_SIZE_CLASSES['${config.widgetSize}'];
+      
+      container.className = \`google-reviews-widget p-4 sm:p-6 bg-white rounded-xl shadow-md transition-all duration-300 \${WIDGET_SIZE_CLASSES['${safeWidgetSize}'] || 'max-w-md'}\`;
       container.setAttribute('role', 'region');
       container.setAttribute('aria-label', 'Google Reviews');
+
+      if (isLoading) {
+        renderSkeleton();
+        return;
+      }
+
       container.innerHTML = \`
         <div class="space-y-6">
-          \${isLoading ? \`
-            <div class="animate-pulse space-y-6">
-              <div class="flex items-center gap-4">
-                <div class="h-16 w-16 rounded-full bg-gray-200"></div>
-                <div class="flex-1 space-y-2">
-                  <div class="h-8 w-3/4 bg-gray-200 rounded-lg"></div>
-                  <div class="h-4 w-1/2 bg-gray-200 rounded-lg"></div>
-                </div>
-              </div>
-              <div class="space-y-4">
-                \${[1, 2, 3].map(() => \`
-                  <div class="p-4 bg-gray-50 rounded-lg space-y-3">
-                    <div class="flex items-center gap-4">
-                      <div class="h-12 w-12 rounded-full bg-gray-200"></div>
-                      <div class="flex-1 space-y-2">
-                        <div class="h-4 w-1/3 bg-gray-200 rounded-lg"></div>
-                        <div class="h-3 w-1/2 bg-gray-200 rounded-lg"></div>
-                      </div>
-                    </div>
-                    <div class="h-3 w-5/6 bg-gray-200 rounded-lg"></div>
-                  </div>
-                \`).join('')}
-              </div>
+          \${error ? \`
+            <div class="text-center p-6 bg-red-50 rounded-lg">
+              <div class="text-red-600 font-medium">\${error}</div>
+              <button onclick="window.location.reload()" class="mt-3 text-sm text-${safeThemeColor}-600 hover:text-${safeThemeColor}-700">
+                Try Again
+              </button>
             </div>
-          \` : error ? \`
-            <div class="text-center text-red-600 p-8 font-medium" role="alert">\${error}</div>
           \` : place ? \`
-            <div class="widget-header fade-transition">
-              <div class="flex items-center gap-4">
+            <div class="widget-header">
+              <div class="flex flex-col sm:flex-row items-start sm:items-center gap-4">
                 \${place.photos && place.photos[0]?.photo_reference ? \`
-                  <img src="\${BACKEND_URL}/api/google/place-photo?photo_reference=\${place.photos[0].photo_reference}&maxwidth=64" alt="\${place.name} logo" class="w-16 h-16 rounded-full object-cover ring-2 ring-${config.themeColor}-200">
+                  <img 
+                    src="\${BACKEND_URL}/api/google/place-photo?photo_reference=\${place.photos[0].photo_reference}&maxwidth=100" 
+                    alt="\${place.name || 'Business'}" 
+                    class="w-14 h-14 sm:w-16 sm:h-16 rounded-full object-cover ring-2 ring-${safeThemeColor}-200 shadow-sm"
+                    loading="lazy"
+                  >
                 \` : \`
-                  <div class="w-16 h-16 rounded-full bg-${config.themeColor}-200 flex items-center justify-center text-${config.themeColor}-600 font-bold text-2xl">
+                  <div class="w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-${safeThemeColor}-100 flex items-center justify-center text-${safeThemeColor}-600 font-bold text-2xl shadow-sm">
                     \${place.name?.charAt(0) || '?'}
                   </div>
                 \`}
                 <div class="flex-1">
-                  <h3 class="text-2xl font-extrabold text-${config.themeColor}-900 tracking-tight">\${place.name}</h3>
-                  <div class="flex items-center gap-3 mt-2">
-                    <div class="flex" role="img" aria-label="Rating: \${place.rating?.toFixed(1)} out of 5">
+                  <h3 class="text-xl sm:text-2xl font-bold text-gray-900">\${place.name || 'Unknown Business'}</h3>
+                  <div class="flex flex-wrap items-center gap-2 mt-2">
+                    <div class="flex items-center" role="img" aria-label="Rating: \${place.rating?.toFixed(1) || 'N/A'} out of 5">
                       \${[1, 2, 3, 4, 5].map(star => \`
-                        <svg class="w-5 h-5 star \${star <= Math.floor(place.rating) ? 'text-yellow-400' : 'text-gray-300'} cursor-pointer" fill="currentColor" viewBox="0 0 24 24">
+                        <svg class="w-5 h-5 star \${star <= Math.floor(place.rating || 0) ? 'text-yellow-400' : 'text-gray-300'}" fill="currentColor" viewBox="0 0 24 24">
                           <path d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24 .588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3 .922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783 .57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.783-.57-.38-1.81 .588-1.81h4.915a1 1 0 00.95-.69l1.519-4.674z" />
                         </svg>
                       \`).join('')}
+                      <span class="ml-1 text-sm font-semibold text-gray-700">\${place.rating?.toFixed(1) || 'N/A'}</span>
                     </div>
-                    <span class="text-sm font-semibold text-${config.themeColor}-700">\${place.rating?.toFixed(1)} / 5</span>
-                    <span class="text-xs text-gray-500">(\${place.user_ratings_total || 0} reviews)</span>
+                    <span class="text-xs text-gray-500">• \${place.user_ratings_total || 0} reviews</span>
+                    \${place.formatted_address ? \`
+                      <span class="text-xs text-gray-500 hidden sm:inline">• \${place.formatted_address.split(',')[0]}</span>
+                    \` : ''}
                   </div>
                 </div>
               </div>
-              \${place.formatted_address ? \`
-                <p class="mt-3 text-sm text-gray-600">\${place.formatted_address}</p>
-              \` : ''}
-              <div class="flex justify-between items-center mt-4">
-                <a href="https://www.google.com/maps/place/?q=place_id:${config.placeId}" target="_blank" rel="noopener noreferrer" class="write-review-btn inline-flex items-center bg-gradient-to-r from-${config.themeColor}-500 to-${config.themeColor}-600 text-white px-4 py-2 rounded-lg hover:from-${config.themeColor}-600 hover:to-${config.themeColor}-700 transition-all duration-200 font-medium" aria-label="Write a review on Google">
+
+              <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mt-4 gap-3">
+                <div class="flex items-center gap-2">
+                  <select 
+                    id="sort-reviews" 
+                    class="px-3 py-2 border border-gray-300 rounded-lg text-sm text-gray-700 focus:ring-${safeThemeColor}-500 focus:border-${safeThemeColor}-500"
+                    aria-label="Sort reviews"
+                  >
+                    <option value="newest" \${sortOption === 'newest' ? 'selected' : ''}>Newest First</option>
+                    <option value="oldest" \${sortOption === 'oldest' ? 'selected' : ''}>Oldest First</option>
+                    <option value="highest" \${sortOption === 'highest' ? 'selected' : ''}>Highest Rated</option>
+                    <option value="lowest" \${sortOption === 'lowest' ? 'selected' : ''}>Lowest Rated</option>
+                  </select>
+                </div>
+                <a 
+                  href="https://www.google.com/maps/place/?q=place_id:${safePlaceId}" 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  class="inline-flex items-center px-4 py-2 bg-${safeThemeColor}-600 text-white rounded-lg hover:bg-${safeThemeColor}-700 transition-colors duration-200 text-sm font-medium"
+                  aria-label="Write a review on Google"
+                >
                   <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15.828l-5.657 1.414 1.414-5.657L18.414 2.586z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
                   </svg>
                   Write a Review
                 </a>
-                <select id="sort-reviews" class="sort-select px-3 py-2 border border-gray-300 rounded-lg text-sm text-gray-700 focus:ring-${config.themeColor}-500" aria-label="Sort reviews">
-                  <option value="newest" \${sortOption === 'newest' ? 'selected' : ''}>Newest First</option>
-                  <option value="oldest" \${sortOption === 'oldest' ? 'selected' : ''}>Oldest First</option>
-                  <option value="highest" \${sortOption === 'highest' ? 'selected' : ''}>Highest Rated</option>
-                  <option value="lowest" \${sortOption === 'lowest' ? 'selected' : ''}>Lowest Rated</option>
-                </select>
               </div>
             </div>
-            <div class="rating-summary bg-gray-50 p-4 rounded-lg fade-transition">
+
+            <div class="bg-gray-50 p-4 rounded-lg">
               <h4 class="text-sm font-semibold text-gray-800 mb-3">Rating Distribution</h4>
               <div class="space-y-2">
                 \${distribution.map(item => \`
                   <div class="flex items-center gap-3">
                     <span class="text-xs text-gray-600 w-8">\${item.stars} ★</span>
                     <div class="flex-1 bg-gray-200 rounded-full h-2">
-                      <div class="rating-bar bg-${config.themeColor}-500 h-2 rounded-full" style="width: \${item.percentage}%"></div>
+                      <div 
+                        class="rating-bar bg-${safeThemeColor}-500 h-2 rounded-full" 
+                        style="width: \${item.percentage}%"
+                        aria-label="\${item.percentage}% of reviews are \${item.stars} stars"
+                      ></div>
                     </div>
                     <span class="text-xs text-gray-500">\${item.count} (\${item.percentage}%)</span>
                   </div>
                 \`).join('')}
               </div>
             </div>
+
             \${displayedReviews.length > 0 ? \`
-              <div class="reviews-row mt-6">
-                \${displayedReviews.map((review, index) => \`
-                  <div class="review-card p-4" style="--index: \${index}">
-                    <div class="flex items-center gap-3">
-                      <div class="w-10 h-10 rounded-full bg-\${['pink', 'orange', 'purple', 'cyan'][index % 4]}-200 flex items-center justify-center text-\${['pink', 'orange', 'purple', 'cyan'][index % 4]}-600 font-bold text-lg ring-2 ring-\${['pink', 'orange', 'purple', 'cyan'][index % 4]}-300">
-                        \${review.author_name?.charAt(0) || '?'}
-                      </div>
-                      <div class="flex-1">
-                        <h4 class="text-sm font-semibold text-\${['pink', 'orange', 'purple', 'cyan'][index % 4]}-600">\${review.author_name || 'Anonymous'}</h4>
-                        <div class="flex items-center gap-2 mt-1">
-                          <div class="flex" role="img" aria-label="Review rating: \${review.rating} out of 5">
-                            \${[1, 2, 3, 4, 5].map(star => \`
-                              <svg class="w-4 h-4 star \${star <= review.rating ? 'text-yellow-400' : 'text-gray-300'} cursor-pointer" fill="currentColor" viewBox="0 0 24 24">
-                                <path d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24 .588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3 .922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783 .57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.783-.57-.38-1.81 .588-1.81h4.915a1 1 0 00.95-.69l1.519-4.674z" />
-                              </svg>
-                            \`).join('')}
+              <div class="reviews-container mt-6 gap-4">
+                \${displayedReviews.map((review, index) => {
+                  const reviewId = review.time + '-' + (review.author_name || 'anonymous');
+                  const isLiked = likedReviews[reviewId];
+                  const colors = ['pink', 'orange', 'purple', 'cyan', 'teal', 'amber'];
+                  const color = colors[index % colors.length];
+                  
+                  return \`
+                    <div 
+                      class="review-card p-4 bg-white border border-gray-200 rounded-lg shadow-sm hover:shadow-md transition-all duration-300"
+                      style="--index: \${index}"
+                    >
+                      <div class="flex items-start gap-3">
+                        <div class="w-10 h-10 rounded-full bg-\${color}-100 flex items-center justify-center text-\${color}-600 font-bold text-lg mt-1">
+                          \${review.author_name?.charAt(0) || '?'}
+                        </div>
+                        <div class="flex-1">
+                          <div class="flex flex-wrap items-center gap-1.5">
+                            <h4 class="text-sm font-semibold text-\${color}-600">\${review.author_name || 'Anonymous'}</h4>
+                            <span class="text-xs text-gray-500">• \${formatDate(review.time)}</span>
                           </div>
-                          <span class="rating-badge \${review.rating >= 4 ? 'bg-green-100 text-green-600' : review.rating === 3 ? 'bg-yellow-100 text-yellow-600' : 'bg-red-100 text-red-600'}">\${review.rating}/5</span>
-                          <span class="text-xs text-gray-500">\${new Date(review.time * 1000).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}</span>
+                          <div class="flex items-center gap-1.5 mt-1">
+                            <div class="flex" role="img" aria-label="Review rating: \${review.rating} out of 5">
+                              \${[1, 2, 3, 4, 5].map(star => \`
+                                <svg class="w-4 h-4 star \${star <= review.rating ? 'text-yellow-400' : 'text-gray-300'}" fill="currentColor" viewBox="0 0 24 24">
+                                  <path d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24 .588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3 .922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783 .57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.783-.57-.38-1.81 .588-1.81h4.915a1 1 0 00.95-.69l1.519-4.674z" />
+                                </svg>
+                              \`).join('')}
+                            </div>
+                            <span class="text-xs px-1.5 py-0.5 rounded-full \${review.rating >= 4 ? 'bg-green-100 text-green-600' : review.rating === 3 ? 'bg-yellow-100 text-yellow-600' : 'bg-red-100 text-red-600'}">
+                              \${review.rating}/5
+                            </span>
+                          </div>
+                          <p 
+                            class="mt-2 text-sm text-gray-700 leading-relaxed line-clamp-4" 
+                            id="review-text-\${index}"
+                          >\${review.text || ''}</p>
+                          \${review.text && review.text.length > 200 ? \`
+                            <button 
+                              class="read-more-btn text-${safeThemeColor}-600 text-sm mt-1" 
+                              onclick="toggleReadMore(\${index})"
+                              aria-expanded="false"
+                            >
+                              Read More
+                            </button>
+                          \` : ''}
+                          <button 
+                            class="like-btn mt-3 text-gray-400 hover:text-red-500 \${isLiked ? 'liked' : ''}" 
+                            onclick="toggleLike('\${reviewId}', \${index})"
+                            aria-label="\${isLiked ? 'Unlike this review' : 'Like this review'}"
+                          >
+                            <svg class="w-5 h-5" fill="\${isLiked ? '#ef4444' : 'currentColor'}" viewBox="0 0 24 24">
+                              <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41 .81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                            </svg>
+                          </button>
                         </div>
                       </div>
                     </div>
-                    <p class="mt-3 text-sm text-gray-700 leading-relaxed line-clamp-4" id="review-text-\${index}">\${review.text || ''}</p>
-                    \${review.text && review.text.length > 120 ? \`
-                      <button class="read-more-btn text-${config.themeColor}-600 text-sm font-medium mt-2 hover:text-${config.themeColor}-700" onclick="toggleReadMore(\${index})">Read More</button>
-                    \` : ''}
-                    <button class="like-btn mt-2 text-gray-400 hover:text-red-500 \${likedReviews.has(index) ? 'liked' : ''}" onclick="toggleLike(\${index})" aria-label="Like review">
-                      <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41 .81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
-                      </svg>
-                    </button>
-                  </div>
-                \`).join('')}
+                  \`;
+                }).join('')}
               </div>
-              \${reviews.length > reviewsPerPage ? \`
+
+              \${reviews.length > reviewsPerPage && currentPage * reviewsPerPage < reviews.length ? \`
                 <div class="flex justify-center mt-6">
-                  <button id="load-more" class="inline-flex items-center bg-gradient-to-r from-${config.themeColor}-500 to-${config.themeColor}-600 text-white px-4 py-2 rounded-lg hover:from-${config.themeColor}-600 hover:to-${config.themeColor}-700 transition-all duration-200 font-medium \${currentPage * reviewsPerPage >= reviews.length ? 'opacity-50 cursor-not-allowed' : ''}" \${currentPage * reviewsPerPage >= reviews.length ? 'disabled' : ''} aria-label="Load more reviews">
+                  <button 
+                    id="load-more" 
+                    class="inline-flex items-center px-4 py-2 bg-${safeThemeColor}-600 text-white rounded-lg hover:bg-${safeThemeColor}-700 transition-colors duration-200 text-sm font-medium"
+                    aria-label="Load more reviews"
+                  >
                     Load More
                   </button>
                 </div>
               \` : ''}
             \` : \`
-              <div class="text-center text-gray-500 p-8 font-medium">No reviews available for this business.</div>
+              <div class="text-center p-8 bg-gray-50 rounded-lg">
+                <div class="text-gray-500 font-medium">No reviews available for this business.</div>
+                <a 
+                  href="https://www.google.com/maps/place/?q=place_id:${safePlaceId}" 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  class="inline-block mt-3 text-sm text-${safeThemeColor}-600 hover:text-${safeThemeColor}-700"
+                >
+                  Be the first to review
+                </a>
+              </div>
             \`}
           \` : \`
-            <div class="text-center text-gray-500 p-8 font-medium">No place found. Please check the configuration.</div>
+            <div class="text-center p-8 bg-gray-50 rounded-lg">
+              <div class="text-gray-500 font-medium">No place found. Please check the configuration.</div>
+            </div>
           \`}
         </div>
       \`;
 
+      // Add event listeners
       const sortSelect = document.getElementById('sort-reviews');
       if (sortSelect) {
         sortSelect.addEventListener('change', (e) => {
           sortOption = e.target.value;
+          localStorage.setItem('sortOption', sortOption);
           currentPage = 1;
-          container.style.opacity = '0.5';
-          setTimeout(() => {
-            render();
-            container.style.opacity = '1';
-          }, 300);
+          render();
         });
       }
 
@@ -367,6 +452,8 @@ function widget(req, res) {
           if (currentPage * reviewsPerPage < reviews.length) {
             currentPage++;
             render();
+            // Smooth scroll to bottom of container
+            container.scrollIntoView({ behavior: 'smooth', block: 'end' });
           }
         });
       }
@@ -374,24 +461,35 @@ function widget(req, res) {
       window.toggleReadMore = function(index) {
         const textEl = document.getElementById(\`review-text-\${index}\`);
         const btn = textEl.nextElementSibling;
+        if (!btn || !btn.classList.contains('read-more-btn')) return;
+        
         if (textEl.classList.contains('line-clamp-4')) {
           textEl.classList.remove('line-clamp-4');
           btn.textContent = 'Read Less';
+          btn.setAttribute('aria-expanded', 'true');
         } else {
           textEl.classList.add('line-clamp-4');
           btn.textContent = 'Read More';
+          btn.setAttribute('aria-expanded', 'false');
         }
       };
 
-      window.toggleLike = function(index) {
-        const btn = document.querySelector(\`#review-text-\${index}\`).parentElement.querySelector('.like-btn');
-        if (likedReviews.has(index)) {
-          likedReviews.delete(index);
+      window.toggleLike = function(reviewId, index) {
+        const btn = document.querySelector(\`[onclick="toggleLike('\${reviewId}', \${index})"]\`);
+        if (!btn) return;
+        
+        if (likedReviews[reviewId]) {
+          delete likedReviews[reviewId];
           btn.classList.remove('liked');
+          btn.setAttribute('aria-label', 'Like this review');
         } else {
-          likedReviews.add(index);
+          likedReviews[reviewId] = true;
           btn.classList.add('liked');
+          btn.setAttribute('aria-label', 'Unlike this review');
         }
+        
+        localStorage.setItem('likedReviews', JSON.stringify(likedReviews));
+        render();
       };
     }
 
@@ -399,12 +497,12 @@ function widget(req, res) {
       isLoading = true;
       error = '';
       render();
+      
       try {
-        console.log('Fetching reviews for clientId:', "${clientId}");
-        const res = await fetch(\`\${BACKEND_URL}/api/google/reviews?clientId=${clientId}\`);
+        const res = await fetch(\`\${BACKEND_URL}/api/google/reviews?clientId=${safeClientId}\`);
         if (!res.ok) throw new Error(\`HTTP error: \${res.status}\`);
+        
         const data = await res.json();
-        console.log('Reviews response:', data);
         if (data.result) {
           place = data.result;
           reviews = data.result.reviews || [];
@@ -416,22 +514,29 @@ function widget(req, res) {
         console.error('Fetch error:', err);
         place = null;
         reviews = [];
+      } finally {
+        isLoading = false;
+        render();
       }
-      isLoading = false;
-      render();
     }
 
+    // Initialize the widget
     loadDependencies(() => {
-      const query = '${config.placeId}' ? 'place_id:${config.placeId}' : '${config.placeName}';
-      if (query) fetchPlace();
-      else {
-        error = 'Please provide a valid place name or ID';
+      if ('${safePlaceId}') {
+        fetchPlace();
+      } else {
+        error = 'Please provide a valid place ID in the configuration';
         render();
       }
     });
   }
 
-  initWidget();
+  // Start the widget
+  if (document.readyState === 'complete') {
+    initWidget();
+  } else {
+    window.addEventListener('load', initWidget);
+  }
 })();
   `;
 

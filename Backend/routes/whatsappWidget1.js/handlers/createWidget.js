@@ -75,7 +75,7 @@ async function createWidget(req, res) {
         position: sanitizedData.position || DEFAULT_POSITION,
         agentName: sanitizedData.agentName || DEFAULT_AGENT_NAME,
         replyTime: sanitizedData.replyTime || DEFAULT_REPLY_TIME,
-        greetingMessage: sanitizedData.greetingMessage || DEFAULT_GREETING_MESSAGE,
+       greetingMessage: sanitizedData.greetingMessage?.trim() ? sanitizedData.greetingMessage.trim() : null,
         greetingImage: req.file
           ? `${process.env.BASE_URL}/Uploads/${req.file.filename}`
           : null,
