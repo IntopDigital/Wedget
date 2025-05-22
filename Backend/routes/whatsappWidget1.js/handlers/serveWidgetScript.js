@@ -102,6 +102,11 @@ async function serveWidgetScript(req, res) {
           0%, 60%, 100% { transform: translateY(0); }
           30% { transform: translateY(-5px); }
         }
+        @keyframes pulse {
+          0% { transform: scale(1); }
+          50% { transform: scale(1.1); }
+          100% { transform: scale(1); }
+        }
         #whatsapp-widget-${widgetId} .scrollbar-hidden::-webkit-scrollbar {
           display: none;
         }
@@ -132,11 +137,37 @@ async function serveWidgetScript(req, res) {
         #whatsapp-widget-${widgetId} .chat-header {
           box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
         }
+        #whatsapp-widget-${widgetId} .whatsapp-logo {
+          filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.2));
+        }
+        #whatsapp-widget-${widgetId} .pulse-effect {
+          animation: pulse 2s infinite;
+        }
+        #whatsapp-widget-${widgetId} .notification-badge {
+          position: absolute;
+          top: -5px;
+          right: -5px;
+          width: 20px;
+          height: 20px;
+          background-color: #ff3b30;
+          color: white;
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 10px;
+          font-weight: bold;
+          box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+        }
       \`;
       document.head.appendChild(styleSheet);
 
-      // WhatsApp SVG
-      const whatsappSvg = '<svg width="24" height="24" viewBox="0 0 24 24"><path fill="#fff" d="M19.11 17.205c-.372 0-1.088 1.39-1.518 1.39a.63.63 0 0 1-.315-.1c-.802-.402-1.504-.817-2.163-1.447-.545-.516-1.146-1.29-1.46-1.963a.426.426 0 0 1-.073-.215c0-.33.99-.945.99-1.49 0-.143-.73-2.09-.832-2.335-.143-.372-.214-.487-.6-.487-.187 0-.36-.043-.53-.043-.302 0-.53.115-.746.315-.688.645-1.032 1.318-1.06 2.264v.114c-.015.99.472 1.977 1.017 2.78 1.23 1.82 2.506 3.41 4.554 4.34.616.287 2.035.888 2.722.888.817 0 2.15-.515 2.478-1.318.13-.33.244-.73.244-1.088 0-.058 0-.144-.03-.215-.1-.172-2.434-1.39-2.678-1.39zm-2.908 7.593c-1.747 0-3.48-.53-4.942-1.49L7.793 24.41l1.132-3.337a8.955 8.955 0 0 1-1.72-5.272c0-4.955 4.04-8.995 8.997-8.995S22.2 10.845 22.2 15.8c0 4.958-4.04 8.998-8.998 8.998zm0-19.798c-5.96 0-10.8 4.842-10.8 10.8 0 1.964.53 3.898 1.546 5.574L5 27.176l5.974-1.92a10.807 10.807 0 0 0 16.03-9.455c0-5.958-4.842-10.8-10.802-10.8z"/></svg>';
+      // Official WhatsApp SVG logo
+      const whatsappSvg = \`
+        <svg class="whatsapp-logo" width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path fill="#fff" d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+        </svg>
+      \`;
 
       // Fetch widget config
       fetch("${process.env.BASE_URL}/api/whatsapp/widgets/${widgetId}")
@@ -152,25 +183,25 @@ async function serveWidgetScript(req, res) {
           widgetContainer.setAttribute('role', 'region');
           widgetContainer.setAttribute('aria-label', 'WhatsApp Chat Widget');
 
-          // Create floating button
+          // Create floating button with improved design
           const button = document.createElement("button");
-          button.className = "fixed flex items-center justify-center rounded-full shadow-lg hover:scale-105 focus:outline-none focus:ring-2 focus:ring-offset-2 transition-transform duration-200 z-[1002]";
+          button.className = "fixed flex items-center justify-center rounded-full shadow-xl hover:scale-105 focus:outline-none focus:ring-2 focus:ring-offset-2 transition-all duration-200 z-[1002]";
           button.style.backgroundColor = config.buttonColor || "#25D366";
           button.style[config.position.includes("right") ? "right" : "left"] = "20px";
           button.style[config.position.includes("bottom") ? "bottom" : "top"] = "20px";
           button.style.width = "60px";
           button.style.height = "60px";
-          button.style.boxShadow = "0 2px 10px rgba(0, 0, 0, 0.2)";
+          button.style.boxShadow = "0 4px 12px rgba(0, 0, 0, 0.15)";
           button.innerHTML = whatsappSvg;
           button.setAttribute('aria-label', 'Toggle WhatsApp Chat');
           button.setAttribute('aria-expanded', 'false');
           button.setAttribute('aria-controls', \`chat-popup-${widgetId}\`);
 
-          // Red dot notification
-          const redDot = document.createElement("span");
-          redDot.className = "absolute top-1 right-1 w-3 h-3 bg-red-500 rounded-full border-2 border-white transition-opacity duration-300";
-          redDot.style.borderColor = config.buttonColor || "#25D366";
-          button.appendChild(redDot);
+          // Notification badge
+          const notificationBadge = document.createElement("span");
+          notificationBadge.className = "notification-badge hidden";
+          notificationBadge.id = "notification-badge-${widgetId}";
+          button.appendChild(notificationBadge);
 
           // Create chat popup
           const chatPopup = document.createElement("div");
@@ -225,7 +256,7 @@ async function serveWidgetScript(req, res) {
             <div class="chat-popup-arrow"></div>
             <div class="error-message hidden text-red-600 text-sm text-center p-5 h-full flex items-center justify-center" id="error-message-${widgetId}" role="alert">Failed to load widget. Please try again later.</div>
           \`;
-
+          
           // Media queries for responsiveness
           const mediaStyles = document.createElement("style");
           mediaStyles.innerText = \`
@@ -243,8 +274,8 @@ async function serveWidgetScript(req, res) {
             }
           \`;
           document.head.appendChild(mediaStyles);
-
-          // Add image error handling
+          
+          // Image error handling
           const profilePic = chatPopup.querySelector('.profile-pic');
           if (config.greetingImage) {
             const img = new Image();
@@ -254,12 +285,12 @@ async function serveWidgetScript(req, res) {
               profilePic.style.backgroundImage = \`url('\${defaultImage}')\`;
             };
           }
-
+          
           // Message persistence
           const storageKey = \`whatsapp-chat-${widgetId}\`;
           const getStoredMessages = () => JSON.parse(localStorage.getItem(storageKey) || '[]');
           const saveMessages = (messages) => localStorage.setItem(storageKey, JSON.stringify(messages));
-
+          
           // Animate popup
           const animatePopup = (open) => {
             const keyframes = open
@@ -277,12 +308,11 @@ async function serveWidgetScript(req, res) {
               fill: 'forwards'
             });
           };
-
+          
           // Focus trap for accessibility
           const focusableElements = chatPopup.querySelectorAll('button, input, [tabindex]:not([tabindex="-1"])');
           const firstFocusable = focusableElements[0];
           const lastFocusable = focusableElements[focusableElements.length - 1];
-
           const trapFocus = (e) => {
             if (e.key === 'Tab') {
               if (e.shiftKey && document.activeElement === firstFocusable) {
@@ -304,7 +334,6 @@ async function serveWidgetScript(req, res) {
             chatPopup.setAttribute('aria-hidden', !isChatOpen);
             button.classList.toggle('scale-110', isChatOpen);
             button.setAttribute('aria-expanded', isChatOpen);
-            redDot.style.opacity = isChatOpen ? '0' : '1';
 
             if (isChatOpen) {
               animatePopup(true);
@@ -413,7 +442,6 @@ async function serveWidgetScript(req, res) {
             chatPopup.setAttribute('aria-hidden', 'true');
             button.classList.remove('scale-110');
             button.setAttribute('aria-expanded', 'false');
-            redDot.style.opacity = '1';
             animatePopup(false);
             setTimeout(() => {
               chatPopup.style.display = "none";
@@ -465,7 +493,7 @@ async function serveWidgetScript(req, res) {
                 <p class="timestamp text-[10px] text-gray-500 text-right mt-1">\${new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</p>
               \`;
               chatArea.appendChild(errorMessage);
-              chatArea.scrollTop = clamp(0, chatArea.scrollHeight, chatArea.scrollHeight);
+              chatArea.scrollTop = chatArea.scrollHeight;
               imageUploadInput.value = '';
               return;
             }

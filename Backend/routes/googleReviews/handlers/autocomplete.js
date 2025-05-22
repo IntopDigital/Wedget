@@ -10,7 +10,6 @@ async function autocomplete(req, res) {
     logger.error('Missing input parameter');
     return res.status(400).json({ error: 'Input query is required' });
   }
-
   try {
     const response = await axios.get(`${PLACES_API}/autocomplete/json`, {
       params: {
