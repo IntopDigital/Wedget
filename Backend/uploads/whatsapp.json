@@ -850,5 +850,17 @@
     "greetingMessage": "Greetings,\r\n\r\nIf you would like us to contact you, please provide your name, phone number, and email in a brief message. Thank you.\r\n\r\nRegards,\r\nOur Team",
     "greetingImage": null,
     "createdAt": "2025-05-22T21:29:35.039Z"
+  },
+  {
+    "widgetId": "09ec3952-bf6b-42fe-8136-d574bf5907b9",
+    "phoneNumber": "+918002890713",
+    "welcomeMessage": "Hi! How can we help you?",
+    "buttonColor": "#25D366",
+    "position": "bottom-right",
+    "agentName": "GSW LAW OFFICE",
+    "replyTime": "Online",
+    "greetingMessage": null,
+    "greetingImage": "http://localhost:5000/Uploads/7d3dbee4-9ac1-49ed-b3d4-be273e4c7cc0.jpg",
+    "createdAt": "2025-05-27T20:46:23.249Z"
   }
 ]
