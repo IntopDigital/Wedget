@@ -1,17 +1,11 @@
 const express = require('express');
-const { upload } = require('./config/storage');
-const { ensureUploadsDir, initializeJsonFile } = require('./utils/fileUtils');
-const createWidget = require('./handlers/createWidget');
-const getWidget = require('./handlers/getWidget');
-const serveWidgetScript = require('./handlers/serveWidgetScript');
-const logger = require('./config/logger');
+const { upload } = require('../whatsappWidget1.js/config/upload');
+const createWidget = require('../whatsappWidget1.js/handlers/createWidget');
+const getWidget = require('../whatsappWidget1.js/handlers/getWidget');
+const serveWidgetScript = require('../whatsappWidget1.js/handlers/serveWidgetScript');
+const logger = require('../whatsappWidget1.js/config/logger');
 
 const router = express.Router();
-// Initialize directories and files
-Promise.all([ensureUploadsDir(), initializeJsonFile()]).catch((err) => {
-  logger.error('Initialization error:', err);
-  process.exit(1);
-});
 
 // Routes
 router.post('/widgets', upload.single('greetingImage'), createWidget);
