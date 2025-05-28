@@ -26,6 +26,9 @@ async function serveWidgetScript(req, res) {
           return;
         }
 
+        // Set root font size for consistent 12px text
+        document.documentElement.style.setProperty('font-size', '12px');
+
         // Add Tailwind CSS
         const script = document.createElement("script");
         script.src = "https://cdn.tailwindcss.com";
@@ -35,13 +38,16 @@ async function serveWidgetScript(req, res) {
               extend: {
                 colors: {
                   whatsapp: {
-                    primary: '#008069',
+                    primary: '#075E54',
                     secondary: '#25D366',
-                    light: '#d9fdd3',
-                    dark: '#005c4b',
-                    bg: '#e5ddd5',
-                    'bg-pattern': 'url(https://web.whatsapp.com/img/bg-chat-tile-light_a4be8c74.png)'
+                    light: '#DCF8C6',
+                    dark: '#005C4B',
+                    bg: '#ECE5DD',
+                    'bg-pattern': 'url(https://web.whatsapp.com/img/bg-chat-tile_9e8a2898.png)'
                   }
+                },
+                fontFamily: {
+                  whatsapp: ['"Helvetica Neue"', '-apple-system', 'Arial', 'sans-serif']
                 }
               }
             }
@@ -51,60 +57,46 @@ async function serveWidgetScript(req, res) {
 
         const styleSheet = document.createElement("style");
         styleSheet.innerText = \`
+          #whatsapp-widget-${widgetId} {
+            font-family: 'Helvetica Neue', -apple-system, Arial, sans-serif;
+            font-size: 1rem;
+            line-height: 1.5;
+          }
           #whatsapp-widget-${widgetId} .chat-popup {
             transform: translateY(100%);
-            transition: opacity 0.3s ease, transform 0.3s ease;
+            transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), opacity 0.3s;
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
           }
           #whatsapp-widget-${widgetId} .chat-popup.open {
             transform: translateY(0);
+            opacity: 1;
           }
           #whatsapp-widget-${widgetId} .chat-message.incoming {
-            background-color: #ffffff;
-            border-top-left-radius: 0;
-          }
-          #whatsapp-widget-${widgetId} .chat-message.outgoing {
-            background-color: #d9fdd3;
-            border-top-right-radius: 0;
+            background-color: #fff;
+            border-radius: 0 7.5px 7.5px 7.5px;
+            margin-left: 8px;
           }
           #whatsapp-widget-${widgetId} .chat-message.incoming::before {
             content: '';
             position: absolute;
             top: 0;
-            left: -8px;
-            width: 0;
-            height: 0;
-            border-style: solid;
-            border-width: 0 8px 12px 0;
-            border-color: transparent #ffffff transparent transparent;
-          }
-          #whatsapp-widget-${widgetId} .chat-message.outgoing::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            right: -8px;
-            width: 0;
-            height: 0;
-            border-style: solid;
-            border-width: 0 0 12px 8px;
-            border-color: transparent transparent #d9fdd3 transparent;
+            left: -6px;
+            width: 6px;
+            height: 10px;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 6 10"><path fill="%23fff" d="M6 0H0c0 2.2 1.8 4 4 4V0z"/></svg>') no-repeat;
           }
           #whatsapp-widget-${widgetId} .chat-popup-arrow {
-            position: absolute;
-            width: 0;
-            height: 0;
-            border-left: 8px solid transparent;
-            border-right: 8px solid transparent;
-            border-top: 8px solid #008069;
-            bottom: -8px;
-            right: 20px;
+            display: none;
           }
           @keyframes bounce {
             0%, 60%, 100% { transform: translateY(0); }
-            30% { transform: translateY(-5px); }
+            30% { transform: translateY(-3px); }
           }
           @keyframes pulse {
             0% { transform: scale(1); }
-            50% { transform: scale(1.1); }
+            50% { transform: scale(1.05); }
             100% { transform: scale(1); }
           }
           #whatsapp-widget-${widgetId} .scrollbar-hidden::-webkit-scrollbar {
@@ -116,48 +108,67 @@ async function serveWidgetScript(req, res) {
           }
           #whatsapp-widget-${widgetId} .typing-indicator span {
             display: inline-block;
-            width: 6px;
-            height: 6px;
+            width: 5px;
+            height: 5px;
             border-radius: 50%;
-            background-color: #667781;
-            margin: 0 2px;
+            background-color: #8696A0;
+            margin: 0 1.5px;
           }
           #whatsapp-widget-${widgetId} .typing-indicator span:nth-child(1) {
-            animation: bounce 1.5s infinite ease-in-out;
+            animation: bounce 1.2s infinite ease-in-out;
           }
           #whatsapp-widget-${widgetId} .typing-indicator span:nth-child(2) {
-            animation: bounce 1.5s 0.2s infinite ease-in-out;
+            animation: bounce 1.2s 0.2s infinite ease-in-out;
           }
           #whatsapp-widget-${widgetId} .typing-indicator span:nth-child(3) {
-            animation: bounce 1.5s 0.4s infinite ease-in-out;
+            animation: bounce 1.2s 0.4s infinite ease-in-out;
           }
           #whatsapp-widget-${widgetId} .chat-message {
-            box-shadow: 0 1px 0.5px rgba(0, 0, 0, 0.13);
+            box-shadow: 0 0.5px 1px rgba(0, 0, 0, 0.08);
           }
           #whatsapp-widget-${widgetId} .chat-header {
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            background: linear-gradient(90deg, #075E54, #128C7E);
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
           }
           #whatsapp-widget-${widgetId} .whatsapp-logo {
-            filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.2));
+            filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.3));
           }
           #whatsapp-widget-${widgetId} .pulse-effect {
-            animation: pulse 2s infinite;
+            animation: pulse 1.8s infinite;
           }
           #whatsapp-widget-${widgetId} .notification-badge {
             position: absolute;
-            top: -5px;
-            right: -5px;
-            width: 20px;
-            height: 20px;
-            background-color: #ff3b30;
+            top: -4px;
+            right: -4px;
+            width: 16px;
+            height: 16px;
+            background-color: #FF3B30;
             color: white;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 10px;
-            font-weight: bold;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+            font-size: 0.75rem;
+            font-weight: 600;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+          }
+          #whatsapp-widget-${widgetId} .input-area {
+            background: #F0F0F0;
+            border-top: 1px solid #D9D9D9;
+          }
+          #whatsapp-widget-${widgetId} .send-btn:hover {
+            filter: brightness(0.95);
+          }
+          #whatsapp-widget-${widgetId} .attachment-btn:hover {
+            background: #E0E0E0;
+          }
+          #whatsapp-widget-${widgetId} .timestamp {
+            font-size: 0.833rem;
+            color: #8696A0;
+          }
+          #whatsapp-widget-${widgetId} .chat-message p {
+            margin: 0;
+            font-size: 1rem;
           }
         \`;
         document.head.appendChild(styleSheet);
@@ -179,21 +190,21 @@ async function serveWidgetScript(req, res) {
             // Create widget container
             const widgetContainer = document.createElement("div");
             widgetContainer.id = "whatsapp-widget-${widgetId}";
-            widgetContainer.className = "font-sans";
+            widgetContainer.className = "font-whatsapp";
             widgetContainer.setAttribute('role', 'region');
             widgetContainer.setAttribute('aria-label', 'WhatsApp Chat Widget');
 
-            // Create floating button with improved design
+            // Create floating button
             const button = document.createElement("button");
-            button.className = "fixed flex items-center justify-center rounded-full shadow-xl hover:scale-105 focus:outline-none focus:ring-2 focus:ring-offset-2 transition-all duration-200 z-[1002]";
+            button.className = "fixed flex items-center justify-center rounded-full shadow-lg hover:scale-105 focus:outline-none focus:ring-2 focus:ring-whatsapp-secondary focus:ring-offset-2 transition-transform duration-200 z-[1002]";
             button.style.backgroundColor = config.buttonColor || "#25D366";
-            button.style[config.position.includes("right") ? "right" : "left"] = "20px";
-            button.style[config.position.includes("bottom") ? "bottom" : "top"] = "20px";
-            button.style.width = "60px";
-            button.style.height = "60px";
+            button.style[config.position.includes("right") ? "right" : "left"] = "16px";
+            button.style[config.position.includes("bottom") ? "bottom" : "top"] = "16px";
+            button.style.width = "56px";
+            button.style.height = "56px";
             button.style.boxShadow = "0 4px 12px rgba(0, 0, 0, 0.15)";
             button.innerHTML = whatsappSvg;
-            button.setAttribute('aria-label', 'Toggle WhatsApp Chat');
+            button.setAttribute('aria-label', 'Open WhatsApp Chat');
             button.setAttribute('aria-expanded', 'false');
             button.setAttribute('aria-controls', \`chat-popup-${widgetId}\`);
 
@@ -205,31 +216,32 @@ async function serveWidgetScript(req, res) {
 
             // Create chat popup
             const chatPopup = document.createElement("div");
-            chatPopup.className = "chat-popup hidden fixed z-[1002] bg-white rounded-t-xl shadow-2xl w-[900px] lg:w-[600px] h-[400px] overflow-hidden border border-gray-200 opacity-0";
+            chatPopup.className = "chat-popup hidden fixed z-[1002] bg-white rounded-t-xl w-[360px] h-[480px] overflow-hidden border border-gray-100 opacity-0";
             chatPopup.id = \`chat-popup-${widgetId}\`;
-            chatPopup.style[config.position.includes("right") ? "right" : "left"] = "20px";
+            chatPopup.style[config.position.includes("right") ? "right" : "left"] = "16px";
             chatPopup.style[config.position.includes("bottom") ? "bottom" : "top"] = "80px";
             chatPopup.setAttribute('role', 'dialog');
             chatPopup.setAttribute('aria-hidden', 'true');
-            
+            chatPopup.setAttribute('aria-labelledby', \`chat-header-${widgetId}\`);
+
             const defaultImage = 'https://cdn-icons-png.flaticon.com/512/3011/3011270.png';
             chatPopup.innerHTML = \`
-              <div class="chat-header bg-whatsapp-primary text-white p-3 flex items-center justify-between relative z-10">
+              <div class="chat-header bg-whatsapp-primary text-white p-3 flex items-center justify-between relative z-10" id="chat-header-${widgetId}">
                 <div class="flex items-center">
-                  <div class="profile-pic w-9 h-9 rounded-full mr-3 bg-cover bg-center border border-white/30" style="background-image: url('\${config.greetingImage || defaultImage}');"></div>
+                  <div class="profile-pic w-8 h-8 rounded-full mr-2 bg-cover bg-center border border-white/20" style="background-image: url('\${config.greetingImage || defaultImage}');"></div>
                   <div class="header-text flex flex-col flex-grow overflow-hidden">
-                    <p class="font-semibold text-sm m-0 whitespace-nowrap overflow-hidden text-ellipsis">\${config.agentName || "Support Agent"}</p>
-                    <p class="text-xs text-white/80 m-0 mt-0.5 flex items-center">
-                      <span class="online-status w-2 h-2 bg-green-400 rounded-full mr-1.5"></span>\${config.replyTime || "Online"}
+                    <p class="font-medium text-[1rem] m-0 whitespace-nowrap overflow-hidden text-ellipsis">\${config.agentName || "Support Agent"}</p>
+                    <p class="text-[0.833rem] text-white/70 m-0 mt-0.5 flex items-center">
+                      <span class="online-status w-1.5 h-1.5 bg-green-400 rounded-full mr-1"></span>\${config.replyTime || "Typically replies within minutes"}
                     </p>
                   </div>
                 </div>
-                <button class="close-btn bg-transparent border-none cursor-pointer text-white text-xl p-1 ml-3 opacity-80 hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-white/50 rounded-full transition-opacity" id="close-btn-${widgetId}" aria-label="Close WhatsApp Chat">×</button>
+                <button class="close-btn bg-transparent border-none cursor-pointer text-white text-lg p-1 opacity-80 hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-white/50 rounded-full transition-opacity" id="close-btn-${widgetId}" aria-label="Close WhatsApp Chat">×</button>
               </div>
-              <div class="chat-area p-2 h-[calc(100%-100px)] max-h-[calc(100vh-200px)] overflow-y-auto box-border bg-whatsapp-bg bg-[url('https://web.whatsapp.com/img/bg-chat-tile-light_a4be8c74.png')] bg-repeat flex flex-col scrollbar-hidden" id="chat-area-${widgetId}" role="log" aria-live="polite"></div>
-              <div class="input-area flex items-center p-3 bg-gray-50 border-t border-gray-200 absolute bottom-0 left-0 right-0" id="input-area-${widgetId}">
-                <button class="attachment-btn bg-transparent border-none text-gray-500 mr-2 cursor-pointer p-1.5 rounded-full hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-whatsapp-secondary transition-colors" id="attachment-btn-${widgetId}" title="Attach file" aria-label="Attach file">
-                  <svg width="20" height="20" viewBox="0 0 24 24">
+              <div class="chat-area p-3 h-[calc(100%-108px)] overflow-y-auto box-border bg-whatsapp-bg bg-[url('https://web.whatsapp.com/img/bg-chat-tile_9e8a2898.png')] bg-repeat flex flex-col scrollbar-hidden" id="chat-area-${widgetId}" role="log" aria-live="polite"></div>
+              <div class="input-area flex items-center p-2 bg-[#F0F0F0] border-t border-gray-200 absolute bottom-0 left-0 right-0" id="input-area-${widgetId}">
+                <button class="attachment-btn bg-transparent border-none text-gray-600 mr-1.5 cursor-pointer p-1.5 rounded-full hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-whatsapp-secondary transition-colors" id="attachment-btn-${widgetId}" title="Attach file" aria-label="Attach file">
+                  <svg width="18" height="18" viewBox="0 0 24 24">
                     <path fill="currentColor" d="M16.5 6v11.5c0 2.21-1.79 4-4 4s-4-1.79-4-4V5a2.5 2.5 0 0 1 5 0v10.5c0 .55-.45 1-1 1s-1-.45-1-1V6H10v9.5c0 1.38 1.12 2.5 2.5 2.5s2.5-1.12 2.5-2.5V5c0-2.21-1.79-4-4-4S7 2.79 7 5v12.5c0 3.04 2.46 5.5 5.5 5.5s5.5-2.46 5.5-5.5V6h-1.5z"/>
                   </svg>
                 </button>
@@ -238,10 +250,10 @@ async function serveWidgetScript(req, res) {
                   type="text"
                   placeholder="Type a message..."
                   aria-label="Type your message"
-                  class="flex-1 border-none rounded-full py-2 px-3 text-sm bg-white outline-none focus:ring-2 focus:ring-whatsapp-secondary focus:ring-offset-0 text-gray-800"
+                  class="flex-1 border-none rounded-full py-1.5 px-3 text-[1rem] bg-white outline-none focus:ring-1 focus:ring-whatsapp-secondary text-gray-800"
                 />
-                <button class="send-btn border-none text-white ml-2 cursor-pointer p-2 rounded-full w-8 h-8 flex items-center justify-center hover:bg-whatsapp-dark focus:outline-none focus:ring-2 focus:ring-whatsapp-dark transition-colors" id="send-btn-${widgetId}" title="Send" aria-label="Send message" style="background-color: \${config.buttonColor || '#25D366'}">
-                  <svg width="20" height="20" viewBox="0 0 24 24">
+                <button class="send-btn border-none text-white ml-1.5 cursor-pointer p-1.5 rounded-full w-8 h-8 flex items-center justify-center hover:brightness-95 focus:outline-none focus:ring-2 focus:ring-whatsapp-dark transition-colors" id="send-btn-${widgetId}" title="Send message" aria-label="Send message" style="background-color: \${config.buttonColor || '#25D366'}">
+                  <svg width="18" height="18" viewBox="0 0 24 24">
                     <path fill="currentColor" d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
                   </svg>
                 </button>
@@ -253,28 +265,28 @@ async function serveWidgetScript(req, res) {
                   aria-label="Upload image"
                 />
               </div>
-              <div class="chat-popup-arrow"></div>
-              <div class="error-message hidden text-red-600 text-sm text-center p-5 h-full flex items-center justify-center" id="error-message-${widgetId}" role="alert">Failed to load widget. Please try again later.</div>
+              <div class="error-message hidden text-red-600 text-[1rem] text-center p-4 h-full flex items-center justify-center" id="error-message-${widgetId}" role="alert">Failed to load chat. Please try again.</div>
             \`;
-            
+
             // Media queries for responsiveness
             const mediaStyles = document.createElement("style");
             mediaStyles.innerText = \`
               @media (max-width: 400px) {
                 #whatsapp-widget-${widgetId} .chat-popup {
-                  width: calc(100vw - 40px) !important;
-                  left: 20px !important;
-                  right: 20px !important;
+                  width: calc(100vw - 32px) !important;
+                  left: 16px !important;
+                  right: 16px !important;
+                  border-radius: 8px;
                 }
               }
-              @media (max-height: 500px) {
+              @media (max-height: 600px) {
                 #whatsapp-widget-${widgetId} .chat-popup {
-                  height: calc(100vh - 80px) !important;
+                  height: calc(100vh - 96px) !important;
                 }
               }
             \`;
             document.head.appendChild(mediaStyles);
-            
+
             // Image error handling
             const profilePic = chatPopup.querySelector('.profile-pic');
             if (config.greetingImage) {
@@ -285,30 +297,46 @@ async function serveWidgetScript(req, res) {
                 profilePic.style.backgroundImage = \`url('\${defaultImage}')\`;
               };
             }
-            
+
             // Message persistence
             const storageKey = \`whatsapp-chat-${widgetId}\`;
-            const getStoredMessages = () => JSON.parse(localStorage.getItem(storageKey) || '[]');
-            const saveMessages = (messages) => localStorage.setItem(storageKey, JSON.stringify(messages));
-            
+            const getStoredMessages = () => {
+              const messages = JSON.parse(localStorage.getItem(storageKey) || '[]');
+              // Only keep incoming messages
+              const filteredMessages = messages.filter(msg => msg.type === 'incoming');
+              if (filteredMessages.length !== messages.length) {
+                localStorage.setItem(storageKey, JSON.stringify(filteredMessages));
+              }
+              return filteredMessages;
+            };
+            const saveMessages = (messages) => {
+              // Only save incoming messages
+              const filteredMessages = messages.filter(msg => msg.type === 'incoming');
+              try {
+                localStorage.setItem(storageKey, JSON.stringify(filteredMessages));
+              } catch (e) {
+                console.warn("Failed to save messages to localStorage:", e);
+              }
+            };
+
             // Animate popup
             const animatePopup = (open) => {
               const keyframes = open
                 ? [
-                    { transform: 'translateY(100%)', opacity: 0 },
+                    { transform: 'translateY(20px)', opacity: 0 },
                     { transform: 'translateY(0)', opacity: 1 }
                   ]
                 : [
                     { transform: 'translateY(0)', opacity: 1 },
-                    { transform: 'translateY(100%)', opacity: 0 }
+                    { transform: 'translateY(20px)', opacity: 0 }
                   ];
               chatPopup.animate(keyframes, {
-                duration: 300,
+                duration: 250,
                 easing: 'cubic-bezier(0.4, 0, 0.2, 1)',
                 fill: 'forwards'
               });
             };
-            
+
             // Focus trap for accessibility
             const focusableElements = chatPopup.querySelectorAll('button, input, [tabindex]:not([tabindex="-1"])');
             const firstFocusable = focusableElements[0];
@@ -332,7 +360,7 @@ async function serveWidgetScript(req, res) {
               chatPopup.style.display = isChatOpen ? "block" : "none";
               chatPopup.classList.toggle('open', isChatOpen);
               chatPopup.setAttribute('aria-hidden', !isChatOpen);
-              button.classList.toggle('scale-110', isChatOpen);
+              button.classList.toggle('scale-105', isChatOpen);
               button.setAttribute('aria-expanded', isChatOpen);
 
               if (isChatOpen) {
@@ -342,54 +370,52 @@ async function serveWidgetScript(req, res) {
                 inputArea.style.display = "flex";
                 chatPopup.addEventListener('keydown', trapFocus);
 
-                // Load stored messages
+                // Load stored messages (only incoming)
                 const storedMessages = getStoredMessages();
                 chatArea.innerHTML = '';
-                storedMessages.forEach(msg => {
+                storedMessages.forEach((msg, index) => {
                   const messageDiv = document.createElement("div");
-                  messageDiv.className = \`chat-message \${msg.type} rounded-lg mb-2 px-3 py-2 max-w-[80%] text-sm relative\`;
-                  messageDiv.style.marginLeft = msg.type === 'incoming' ? '8px' : 'auto';
-                  messageDiv.style.marginRight = msg.type === 'outgoing' ? '8px' : 'auto';
-                  
+                  messageDiv.className = "chat-message incoming rounded-lg mb-1 px-2.5 py-1.5 max-w-[70%] text-[1rem] relative";
+                  messageDiv.style.marginLeft = '8px';
+
+                  // Group messages by time
+                  const prevMsg = storedMessages[index - 1];
+                  if (prevMsg && prevMsg.type === msg.type && new Date(msg.timestamp).getMinutes() === new Date(prevMsg.timestamp).getMinutes()) {
+                    messageDiv.style.marginTop = '1px';
+                  }
+
                   if (msg.content.includes('<img')) {
                     messageDiv.innerHTML = \`
                       \${msg.content}
-                      <p class="timestamp text-[10px] text-gray-500 text-right mt-1 flex items-center justify-end">
-                        \${msg.timestamp} \${msg.type === 'outgoing' ? '<span class="ml-1 text-xs">✓✓</span>' : ''}
-                      </p>
+                      <p class="timestamp text-[0.833rem] text-right mt-0.5">\${new Date(msg.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</p>
                     \`;
                   } else {
                     messageDiv.innerHTML = \`
-                      <p class="m-0 text-gray-800">\${msg.content}</p>
-                      <p class="timestamp text-[10px] text-gray-500 text-right mt-1 flex items-center justify-end">
-                        \${msg.timestamp} \${msg.type === 'outgoing' ? '<span class="ml-1 text-xs">✓✓</span>' : ''}
-                      </p>
+                      <p class="m-0 text-gray-900">\${msg.content}</p>
+                      <p class="timestamp text-[0.833rem] text-right mt-0.5">\${new Date(msg.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</p>
                     \`;
-                  }
-                  
-                  if (msg.type === 'outgoing' && msg.delivered) {
-                    messageDiv.querySelector('.timestamp span').style.color = '#53bdeb';
                   }
                   chatArea.appendChild(messageDiv);
                 });
 
-                // Show greeting if no messages and greetingMessage is non-empty
-                if (!storedMessages.length) {
-                  if (config.greetingMessage) {
-                    const greetingMessage = document.createElement("div");
-                    greetingMessage.className = "chat-message incoming rounded-lg mb-2 px-3 py-2 max-w-[80%] text-sm relative";
-                    greetingMessage.style.marginLeft = '8px';
-                    greetingMessage.innerHTML = \`
-                      <p class="m-0 text-gray-800">\${config.greetingMessage}</p>
-                      <p class="timestamp text-[10px] text-gray-500 text-right mt-1">\${new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</p>
-                    \`;
-                    chatArea.appendChild(greetingMessage);
-                    saveMessages([{ type: 'incoming', content: config.greetingMessage, timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) }]);
-                  }
+                // Show greeting if no messages
+                if (!storedMessages.length && config.greetingMessage) {
+                  const greetingMessage = document.createElement("div");
+                  greetingMessage.className = "chat-message incoming rounded-lg mb-1 px-2.5 py-1.5 max-w-[70%] text-[1rem] relative";
+                  greetingMessage.style.marginLeft = '8px';
+                  greetingMessage.innerHTML = \`
+                    <p class="m-0 text-gray-900">\${config.greetingMessage}</p>
+                    <p class="timestamp text-[0.833rem] text-right mt-0.5">\${new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</p>
+                  \`;
+                  chatArea.appendChild(greetingMessage);
+                  saveMessages([{ type: 'incoming', content: config.greetingMessage, timestamp: new Date().toISOString() }]);
+                }
 
+                // Show welcome message with typing animation
+                if (!storedMessages.some(msg => msg.content === (config.welcomeMessage || "Hi there! How can I help you today?"))) {
                   setTimeout(() => {
                     const typingIndicator = document.createElement("div");
-                    typingIndicator.className = "typing-indicator flex items-center mb-2 self-start bg-white p-2 px-3 rounded-lg";
+                    typingIndicator.className = "typing-indicator flex items-center mb-1 self-start bg-white p-1.5 px-2.5 rounded-lg";
                     typingIndicator.style.marginLeft = '8px';
                     typingIndicator.innerHTML = \`
                       <span></span>
@@ -402,17 +428,23 @@ async function serveWidgetScript(req, res) {
                     setTimeout(() => {
                       typingIndicator.remove();
                       const welcomeMsg = document.createElement("div");
-                      welcomeMsg.className = "chat-message incoming rounded-lg mb-2 px-3 py-2 max-w-[80%] text-sm relative";
+                      welcomeMsg.className = "chat-message incoming rounded-lg mb-1 px-2.5 py-1.5 max-w-[70%] text-[1rem] relative";
                       welcomeMsg.style.marginLeft = '8px';
                       welcomeMsg.innerHTML = \`
-                        <p class="m-0 text-gray-800">\${config.welcomeMessage || "Hi there! How can I help you today?"}</p>
-                        <p class="timestamp text-[10px] text-gray-500 text-right mt-1">\${new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</p>
+                        <p class="m-0 text-gray-900">\${config.welcomeMessage || "Hi there! How can I help you today?"}</p>
+                        <p class="timestamp text-[0.833rem] text-right mt-0.5">\${new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</p>
                       \`;
+                      welcomeMsg.style.opacity = '0';
+                      welcomeMsg.style.transform = 'translateY(10px)';
                       chatArea.appendChild(welcomeMsg);
+                      welcomeMsg.animate([
+                        { opacity: 0, transform: 'translateY(10px)' },
+                        { opacity: 1, transform: 'translateY(0)' }
+                      ], { duration: 200, fill: 'forwards' });
                       chatArea.scrollTop = chatArea.scrollHeight;
-                      saveMessages([...getStoredMessages(), { type: 'incoming', content: config.welcomeMessage || "Hi there! How can I help you today?", timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) }]);
-                    }, Math.random() * 1000 + 1500);
-                  }, Math.random() * 500 + 1000);
+                      saveMessages([...getStoredMessages(), { type: 'incoming', content: config.welcomeMessage || "Hi there! How can I help you today?", timestamp: new Date().toISOString() }]);
+                    }, 1200);
+                  }, 800);
                 }
 
                 chatArea.scrollTop = chatArea.scrollHeight;
@@ -422,7 +454,7 @@ async function serveWidgetScript(req, res) {
                 animatePopup(false);
                 setTimeout(() => {
                   chatPopup.style.display = "none";
-                }, 300);
+                }, 250);
                 chatPopup.removeEventListener('keydown', trapFocus);
               }
             };
@@ -440,15 +472,12 @@ async function serveWidgetScript(req, res) {
               isChatOpen = false;
               chatPopup.classList.remove('open');
               chatPopup.setAttribute('aria-hidden', 'true');
-              button.classList.remove('scale-110');
+              button.classList.remove('scale-105');
               button.setAttribute('aria-expanded', 'false');
               animatePopup(false);
               setTimeout(() => {
                 chatPopup.style.display = "none";
-              }, 300);
-              const chatArea = chatPopup.querySelector("#chat-area-${widgetId}");
-              const inputArea = chatPopup.querySelector("#input-area-${widgetId}");
-              inputArea.style.display = "none";
+              }, 250);
               chatPopup.removeEventListener('keydown', trapFocus);
             };
 
@@ -470,75 +499,53 @@ async function serveWidgetScript(req, res) {
               if (!file) return;
 
               const validTypes = ['image/jpeg', 'image/png'];
-              const maxSize = 5 * 1024 * 1024; // 5MB
+              const maxSize = 5 * 1024 * 1024;
               if (!validTypes.includes(file.type)) {
                 const chatArea = chatPopup.querySelector("#chat-area-${widgetId}");
                 const errorMessage = document.createElement("div");
-                errorMessage.className = "chat-message error bg-red-50 text-red-600 self-center rounded-lg p-2 mb-2 px-3 py-2 text-sm";
+                errorMessage.className = "chat-message incoming bg-red-50 text-red-600 self-center rounded-lg p-2 mb-1 px-2.5 py-1.5 text-[1rem]";
                 errorMessage.innerHTML = \`
                   <p class="m-0">Only JPEG or PNG images are allowed.</p>
-                  <p class="timestamp text-[10px] text-gray-500 text-right mt-1">\${new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</p>
+                  <p class="timestamp text-[0.833rem] text-right mt-0.5">\${new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</p>
                 \`;
                 chatArea.appendChild(errorMessage);
                 chatArea.scrollTop = chatArea.scrollHeight;
+                saveMessages([...getStoredMessages(), { type: 'incoming', content: 'Only JPEG or PNG images are allowed.', timestamp: new Date().toISOString() }]);
                 imageUploadInput.value = '';
                 return;
               }
               if (file.size > maxSize) {
                 const chatArea = chatPopup.querySelector("#chat-area-${widgetId}");
                 const errorMessage = document.createElement("div");
-                errorMessage.className = "chat-message error bg-red-50 text-red-600 self-center rounded-lg p-2 mb-2 px-3 py-2 text-sm";
+                errorMessage.className = "chat-message incoming bg-red-50 text-red-600 self-center rounded-lg p-2 mb-1 px-2.5 py-1.5 text-[1rem]";
                 errorMessage.innerHTML = \`
                   <p class="m-0">Image size must be less than 5MB.</p>
-                  <p class="timestamp text-[10px] text-gray-500 text-right mt-1">\${new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</p>
+                  <p class="timestamp text-[0.833rem] text-right mt-0.5">\${new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</p>
                 \`;
                 chatArea.appendChild(errorMessage);
                 chatArea.scrollTop = chatArea.scrollHeight;
+                saveMessages([...getStoredMessages(), { type: 'incoming', content: 'Image size must be less than 5MB.', timestamp: new Date().toISOString() }]);
                 imageUploadInput.value = '';
                 return;
               }
 
               const reader = new FileReader();
               reader.onload = (e) => {
-                const chatArea = chatPopup.querySelector("#chat-area-${widgetId}");
-                const imageMessage = document.createElement("div");
-                imageMessage.className = "chat-message outgoing rounded-lg mb-2 px-3 py-2 max-w-[80%] text-sm relative";
-                imageMessage.style.marginRight = '8px';
-                const imgContent = \`<img src="\${e.target.result}" class="max-w-full rounded max-h-[200px] object-contain block" alt="Uploaded image" />\`;
-                imageMessage.innerHTML = \`
-                  \${imgContent}
-                  <p class="timestamp text-[10px] text-gray-500 text-right mt-1 flex items-center justify-end">
-                    \${new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })} <span class="ml-1 text-xs">✓✓</span>
-                  </p>
-                \`;
-                chatArea.appendChild(imageMessage);
-                chatArea.scrollTop = chatArea.scrollHeight;
-                saveMessages([...getStoredMessages(), { type: 'outgoing', content: imgContent, timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }), delivered: false }]);
-
-                setTimeout(() => {
-                  const ticks = imageMessage.querySelector('.timestamp span');
-                  if (ticks) {
-                    ticks.style.color = '#53bdeb';
-                    const messages = getStoredMessages();
-                    messages[messages.length - 1].delivered = true;
-                    saveMessages(messages);
-                  }
-                }, 1000);
-
-                // Open WhatsApp with image placeholder message
+                // Open WhatsApp with image placeholder (no UI display)
                 window.open("https://wa.me/" + config.phoneNumber + "?text=" + encodeURIComponent("Check out this image!"), "_blank");
                 imageUploadInput.value = "";
               };
               reader.onerror = () => {
                 const chatArea = chatPopup.querySelector("#chat-area-${widgetId}");
                 const errorMessage = document.createElement("div");
-                errorMessage.className = "chat-message error bg-red-50 text-red-600 self-center rounded-lg p-2 mb-2 px-3 py-2 text-sm";
+                errorMessage.className = "chat-message incoming bg-red-50 text-red-600 self-center rounded-lg p-2 mb-1 px-2.5 py-1.5 text-[1rem]";
                 errorMessage.innerHTML = \`
                   <p class="m-0">Failed to read the image file.</p>
-                  <p class="timestamp text-[10px] text-gray-500 text-right mt-1">\${new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</p>
+                  <p class="timestamp text-[0.833rem] text-right mt-0.5">\${new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</p>
                 \`;
                 chatArea.appendChild(errorMessage);
                 chatArea.scrollTop = chatArea.scrollHeight;
+                saveMessages([...getStoredMessages(), { type: 'incoming', content: 'Failed to read the image file.', timestamp: new Date().toISOString() }]);
                 imageUploadInput.value = '';
               };
               reader.readAsDataURL(file);
@@ -547,42 +554,30 @@ async function serveWidgetScript(req, res) {
             const sendMessage = () => {
               const input = chatPopup.querySelector("#whatsapp-input-${widgetId}");
               const message = input.value.trim();
-              const imageUploadInput = chatPopup.querySelector("#image-upload-${widgetId}");
+              if (!message) return;
 
-              if (message) {
-                const chatArea = chatPopup.querySelector("#chat-area-${widgetId}");
-                const messageDiv = document.createElement("div");
-                messageDiv.className = "chat-message outgoing rounded-lg mb-2 px-3 py-2 max-w-[80%] text-sm relative";
-                messageDiv.style.marginRight = '8px';
-                messageDiv.innerHTML = \`
-                  <p class="m-0 text-gray-800">\${message}</p>
-                  <p class="timestamp text-[10px] text-gray-500 text-right mt-1 flex items-center justify-end">
-                    \${new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })} <span class="ml-1 text-xs">✓✓</span>
-                  </p>
-                \`;
-                chatArea.appendChild(messageDiv);
-                chatArea.scrollTop = chatArea.scrollHeight;
-                saveMessages([...getStoredMessages(), { type: 'outgoing', content: message, timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }), delivered: false }]);
-
-                setTimeout(() => {
-                  const ticks = messageDiv.querySelector('.timestamp span');
-                  if (ticks) {
-                    ticks.style.color = '#53bdeb';
-                    const messages = getStoredMessages();
-                    messages[messages.length - 1].delivered = true;
-                    saveMessages(messages);
-                  }
-                }, 1000);
-
-                window.open("https://wa.me/" + config.phoneNumber + "?text=" + encodeURIComponent(message), "_blank");
-                input.value = "";
-              } else if (imageUploadInput.files.length > 0) {
-                // Image upload handled separately
-                return;
-              }
+              // Open WhatsApp link but do not display or save the message
+              window.open("https://wa.me/" + config.phoneNumber + "?text=" + encodeURIComponent(message), "_blank");
+              input.value = "";
+              // Ensure popup remains open
+              chatPopup.style.display = "block";
+              chatPopup.classList.add('open');
+              chatPopup.setAttribute('aria-hidden', 'false');
+              button.setAttribute('aria-expanded', 'true');
+              const chatArea = chatPopup.querySelector("#chat-area-${widgetId}");
+              chatArea.scrollTop = chatArea.scrollHeight;
+              input.focus();
             };
 
-            chatPopup.querySelector("#send-btn-${widgetId}").onclick = sendMessage;
+            chatPopup.querySelector("#send-btn-${widgetId}").onclick = () => {
+              sendMessage();
+              const sendBtn = chatPopup.querySelector("#send-btn-${widgetId}");
+              sendBtn.animate([
+                { transform: 'scale(1)' },
+                { transform: 'scale(0.9)' },
+                { transform: 'scale(1)' }
+              ], { duration: 150 });
+            };
 
             chatPopup.querySelector("#send-btn-${widgetId}").addEventListener('keydown', (e) => {
               if (e.key === 'Enter' || e.key === ' ') {
@@ -601,13 +596,13 @@ async function serveWidgetScript(req, res) {
             // Adjust popup height and handle mobile keyboard
             const adjustPopupHeight = () => {
               const popup = chatPopup;
-              const maxHeight = window.innerHeight - 100;
+              const maxHeight = window.innerHeight - 96;
               popup.style.maxHeight = \`\${maxHeight}px\`;
               const chatArea = popup.querySelector("#chat-area-${widgetId}");
               const inputArea = popup.querySelector("#input-area-${widgetId}");
               const header = popup.querySelector('.chat-header');
-              const headerHeight = header ? header.offsetHeight : 60;
-              const inputHeight = inputArea ? inputArea.offsetHeight : 40;
+              const headerHeight = header.offsetHeight;
+              const inputHeight = inputArea.offsetHeight;
               chatArea.style.height = \`calc(100% - \${headerHeight + inputHeight}px)\`;
               chatArea.style.maxHeight = \`calc(\${maxHeight}px - \${headerHeight + inputHeight}px)\`;
               chatArea.scrollTop = chatArea.scrollHeight;
@@ -618,14 +613,8 @@ async function serveWidgetScript(req, res) {
               if (isMobile) {
                 window.addEventListener('resize', () => {
                   const vh = window.innerHeight;
-                  chatPopup.style.maxHeight = \`\${vh - 100}px\`;
-                  const chatArea = chatPopup.querySelector("#chat-area-${widgetId}");
-                  const inputArea = chatPopup.querySelector("#input-area-${widgetId}");
-                  const header = chatPopup.querySelector('.chat-header');
-                  const headerHeight = header ? header.offsetHeight : 60;
-                  const inputHeight = inputArea ? inputArea.offsetHeight : 40;
-                  chatArea.style.height = \`calc(100% - \${headerHeight + inputHeight}px)\`;
-                  chatArea.scrollTop = chatArea.scrollHeight;
+                  chatPopup.style.maxHeight = \`\${vh - 96}px\`;
+                  adjustPopupHeight();
                 });
               }
             };
