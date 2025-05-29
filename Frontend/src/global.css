@@ -1,0 +1,25 @@
+html, body {
+  font-size: 16px;
+}
+h1, h2, h3, h4, h5, h6 {
+  font-size: 16px;
+}
+div {
+  font-size: 15px;
+}
+@media (min-width: 640px) {
+  html, body { font-size: 16px; }
+  h1, h2, h3, h4, h5, h6 { font-size: 16px; }
+}
+@media (min-width: 768px) {
+  html, body { font-size: 16px; }
+  h1, h2, h3, h4, h5, h6 { font-size: 16px; }
+}
+@media (min-width: 1024px) {
+  html, body { font-size: 16px; }
+  h1, h2, h3, h4, h5, h6 { font-size: 17px; }
+}
+@media (min-width: 1280px) {
+  html, body { font-size: 15px; }
+  h1, h2, h3, h4, h5, h6 { font-size: 18px; }
+}
