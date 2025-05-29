@@ -1,0 +1,39 @@
+const { v4: uuidv4 } = require('uuid');
+const logger = require('../config/logger');
+const { setClient, saveClient } = require('../utils/clientManager');
+
+async function generateClient(req, res) {
+  const { placeId, placeName, themeColor = 'teal', widgetSize = 'medium' } = req.body;
+  logger.info('Generate client request:', { placeId, placeName, themeColor, widgetSize });
+
+  if (!placeId || !placeName) {
+    logger.error('Missing placeId or placeName:', { placeId, placeName });
+    return res.status(400).json({ error: 'placeId and placeName are required' });
+  }
+
+  const clientId = uuidv4();
+  const clientData = {
+    placeId,
+    placeName,
+    themeColor,
+    widgetSize,
+  };
+
+  try {
+    setClient(clientId, clientData);
+    await saveClient(clientId, clientData);
+
+    const embedCode = `
+      <div id="google-reviews" data-client-id="${clientId}" data-backend-url="${process.env.BASE_URL}"></div>
+      <script src="${process.env.BASE_URL}/api/google/widget/${clientId}.js" async></script>
+    `;
+
+    logger.info('Generated client:', { clientId, placeId });
+    res.json({ clientId, embedCode });
+  } catch (err) {
+    logger.error('Error generating client:', err.message);
+    res.status(500).json({ error: 'Failed to generate client', details: err.message });
+  }
+}
+
+module.exports = generateClient;
